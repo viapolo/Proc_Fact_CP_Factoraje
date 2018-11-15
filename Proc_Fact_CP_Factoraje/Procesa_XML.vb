@@ -44,7 +44,7 @@ Module Procesa_XML
 
             If tcomprobante = "I" Then
                 'Validación de información
-                If rfc = "DME061031H27" Or rfc = "CVN140812CQ9" Or rfc = "DIM061230LN8" Then
+                If rfc = "DME061031H27" Or rfc = "CVN140812CQ9" Or rfc = "DIM061230LN8" Or rfc = "GTC980421R4A" Then
                     var = dtF100.Existe_Solo_Folio_ScalarQuery(rfc, importe, folio)
                 Else
                     var = dtF100.Existe_ScalarQuery(rfc, serie & folio, importe)
@@ -57,7 +57,7 @@ Module Procesa_XML
                 End If
                 If var <> "0" Then
                     If var_xml = "NE" Then
-                        If rfc = "DME061031H27" Or rfc = "CVN140812CQ9" Or rfc = "DIM061230LN8" Then
+                        If rfc = "DME061031H27" Or rfc = "CVN140812CQ9" Or rfc = "DIM061230LN8" Or rfc = "GTC980421R4A" Then
                             dtWebXML.Insert(folio, folio, rfc, CDbl(importe), 0, ffactura, Nothing, False, Nothing, Nothing, uuid, "", CInt(folio), tcambio, mpago, moneda)
                         Else
                             dtWebXML.Insert(folio, folio, rfc, CDbl(importe), 0, ffactura, Nothing, False, Nothing, Nothing, uuid, serie, CInt(folio), tcambio, mpago, moneda)
