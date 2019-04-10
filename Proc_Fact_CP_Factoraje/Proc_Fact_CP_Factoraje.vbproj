@@ -91,6 +91,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>XML_CXPDS.xsd</DependentUpon>
     </Compile>
+    <Compile Include="XML_CXPDS.vb">
+      <DependentUpon>XML_CXPDS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="XML_FactorajeDS.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

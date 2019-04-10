@@ -212,11 +212,13 @@ Module Procesa_XML
                     Return retorno
                     Exit Function
                 ElseIf (Comprobante.Name = "Folio" Or Comprobante.Name = "folio") And nodo = "Folio" Then
-                    retorno = Comprobante.Value.ToString
+                    If Comprobante.Value.ToString.Length > 19 Then
+                        retorno = (Comprobante.Value.ToString).Substring(0, 20)
+                    End If
                     Return retorno
-                    Exit Function
-                ElseIf Comprobante.Name = "Fecha" And nodo = "Fecha" Then
-                    retorno = Comprobante.Value.ToString
+                        Exit Function
+                    ElseIf Comprobante.Name = "Fecha" And nodo = "Fecha" Then
+                        retorno = Comprobante.Value.ToString
                     Return retorno
                     Exit Function
                 End If
@@ -265,7 +267,7 @@ Module Procesa_XML
 
             Try
                 If dtCxp.Existe_ScalarQuery(leeXMLF(cadXML, "UUID")).ToString = "NE" Then
-                    dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"))
+                    dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
                     System.IO.File.Move(Archivo, pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
                     System.IO.File.Move(pathCxpA & nombre(0) & ".pdf", pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                 End If
@@ -296,7 +298,7 @@ Module Procesa_XML
 
             Try
                 If dtCxp.Existe_ScalarQuery(leeXMLF(cadXML, "UUID")).ToString = "NE" Then
-                    dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"))
+                    dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
                     System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
                     System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                 End If

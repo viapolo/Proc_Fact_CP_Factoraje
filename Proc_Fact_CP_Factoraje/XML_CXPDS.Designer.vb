@@ -317,6 +317,10 @@ Partial Public Class XML_CXPDS
         
         Private columnfechaTimbrado As Global.System.Data.DataColumn
         
+        Private columnprocesado As Global.System.Data.DataColumn
+        
+        Private columnfechaProceso As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -489,6 +493,22 @@ Partial Public Class XML_CXPDS
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property procesadoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnprocesado
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property fechaProcesoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnfechaProceso
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -541,9 +561,11 @@ Partial Public Class XML_CXPDS
                     ByVal serie As String,  _
                     ByVal folio As String,  _
                     ByVal fechaEmision As String,  _
-                    ByVal fechaTimbrado As String) As CXP_XmlCfdiRow
+                    ByVal fechaTimbrado As String,  _
+                    ByVal procesado As Boolean,  _
+                    ByVal fechaProceso As Date) As CXP_XmlCfdiRow
             Dim rowCXP_XmlCfdiRow As CXP_XmlCfdiRow = CType(Me.NewRow,CXP_XmlCfdiRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, rfcEmisor, rfcReceptor, montoTotal, totImpRetenidos, totImpTrasladados, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado}
+            Dim columnValuesArray() As Object = New Object() {Nothing, rfcEmisor, rfcReceptor, montoTotal, totImpRetenidos, totImpTrasladados, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, procesado, fechaProceso}
             rowCXP_XmlCfdiRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCXP_XmlCfdiRow)
             Return rowCXP_XmlCfdiRow
@@ -589,6 +611,8 @@ Partial Public Class XML_CXPDS
             Me.columnfolio = MyBase.Columns("folio")
             Me.columnfechaEmision = MyBase.Columns("fechaEmision")
             Me.columnfechaTimbrado = MyBase.Columns("fechaTimbrado")
+            Me.columnprocesado = MyBase.Columns("procesado")
+            Me.columnfechaProceso = MyBase.Columns("fechaProceso")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -628,6 +652,10 @@ Partial Public Class XML_CXPDS
             MyBase.Columns.Add(Me.columnfechaEmision)
             Me.columnfechaTimbrado = New Global.System.Data.DataColumn("fechaTimbrado", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnfechaTimbrado)
+            Me.columnprocesado = New Global.System.Data.DataColumn("procesado", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnprocesado)
+            Me.columnfechaProceso = New Global.System.Data.DataColumn("fechaProceso", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfechaProceso)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnidXmlCfdi, Me.columnuuid}, true))
             Me.columnidXmlCfdi.AutoIncrement = true
             Me.columnidXmlCfdi.AutoIncrementSeed = -1
@@ -1040,6 +1068,36 @@ Partial Public Class XML_CXPDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property procesado() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tableCXP_XmlCfdi.procesadoColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'procesado' de la tabla 'CXP_XmlCfdi' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCXP_XmlCfdi.procesadoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property fechaProceso() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tableCXP_XmlCfdi.fechaProcesoColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'fechaProceso' de la tabla 'CXP_XmlCfdi' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCXP_XmlCfdi.fechaProcesoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function IsrfcEmisorNull() As Boolean
             Return Me.IsNull(Me.tableCXP_XmlCfdi.rfcEmisorColumn)
         End Function
@@ -1216,6 +1274,30 @@ Partial Public Class XML_CXPDS
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetfechaTimbradoNull()
             Me(Me.tableCXP_XmlCfdi.fechaTimbradoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsprocesadoNull() As Boolean
+            Return Me.IsNull(Me.tableCXP_XmlCfdi.procesadoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetprocesadoNull()
+            Me(Me.tableCXP_XmlCfdi.procesadoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsfechaProcesoNull() As Boolean
+            Return Me.IsNull(Me.tableCXP_XmlCfdi.fechaProcesoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetfechaProcesoNull()
+            Me(Me.tableCXP_XmlCfdi.fechaProcesoColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -1402,6 +1484,8 @@ Namespace XML_CXPDSTableAdapters
             tableMapping.ColumnMappings.Add("folio", "folio")
             tableMapping.ColumnMappings.Add("fechaEmision", "fechaEmision")
             tableMapping.ColumnMappings.Add("fechaTimbrado", "fechaTimbrado")
+            tableMapping.ColumnMappings.Add("procesado", "procesado")
+            tableMapping.ColumnMappings.Add("fechaProceso", "fechaProceso")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
@@ -1424,7 +1508,9 @@ Namespace XML_CXPDSTableAdapters
                 " NULL) OR ([folio] = @Original_folio)) AND ((@IsNull_fechaEmision = 1 AND [fecha"& _ 
                 "Emision] IS NULL) OR ([fechaEmision] = @Original_fechaEmision)) AND ((@IsNull_fe"& _ 
                 "chaTimbrado = 1 AND [fechaTimbrado] IS NULL) OR ([fechaTimbrado] = @Original_fec"& _ 
-                "haTimbrado)))"
+                "haTimbrado)) AND ((@IsNull_procesado = 1 AND [procesado] IS NULL) OR ([procesado"& _ 
+                "] = @Original_procesado)) AND ((@IsNull_fechaProceso = 1 AND [fechaProceso] IS N"& _ 
+                "ULL) OR ([fechaProceso] = @Original_fechaProceso)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_idXmlCfdi", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "idXmlCfdi", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_rfcEmisor", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
@@ -1458,17 +1544,22 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fechaEmision", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaEmision", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_fechaTimbrado", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaTimbrado", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fechaTimbrado", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaTimbrado", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_procesado", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "procesado", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_procesado", Global.System.Data.SqlDbType.Bit, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "procesado", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_fechaProceso", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaProceso", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fechaProceso", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaProceso", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO [CXP_XmlCfdi] ([rfcEmisor], [rfcReceptor], [montoTotal], [totImpReten"& _ 
                 "idos], [totImpTrasladados], [uuid], [nombreProv], [moneda], [mPago], [fPago], [t"& _ 
-                "ipoCambio], [tComprobante], [serie], [folio], [fechaEmision], [fechaTimbrado]) V"& _ 
-                "ALUES (@rfcEmisor, @rfcReceptor, @montoTotal, @totImpRetenidos, @totImpTrasladad"& _ 
-                "os, @uuid, @nombreProv, @moneda, @mPago, @fPago, @tipoCambio, @tComprobante, @se"& _ 
-                "rie, @folio, @fechaEmision, @fechaTimbrado);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmisor, rfcRe"& _ 
-                "ceptor, montoTotal, totImpRetenidos, totImpTrasladados, uuid, nombreProv, moneda"& _ 
-                ", mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbr"& _ 
-                "ado FROM CXP_XmlCfdi WHERE (idXmlCfdi = SCOPE_IDENTITY()) AND (uuid = @uuid)"
+                "ipoCambio], [tComprobante], [serie], [folio], [fechaEmision], [fechaTimbrado], ["& _ 
+                "procesado], [fechaProceso]) VALUES (@rfcEmisor, @rfcReceptor, @montoTotal, @totI"& _ 
+                "mpRetenidos, @totImpTrasladados, @uuid, @nombreProv, @moneda, @mPago, @fPago, @t"& _ 
+                "ipoCambio, @tComprobante, @serie, @folio, @fechaEmision, @fechaTimbrado, @proces"& _ 
+                "ado, @fechaProceso);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmisor, rfcReceptor, montoTotal, totI"& _ 
+                "mpRetenidos, totImpTrasladados, uuid, nombreProv, moneda, mPago, fPago, tipoCamb"& _ 
+                "io, tComprobante, serie, folio, fechaEmision, fechaTimbrado, procesado, fechaPro"& _ 
+                "ceso FROM CXP_XmlCfdi WHERE (idXmlCfdi = SCOPE_IDENTITY()) AND (uuid = @uuid)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcEmisor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcReceptor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcReceptor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -1486,6 +1577,8 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@folio", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "folio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fechaEmision", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaEmision", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fechaTimbrado", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaTimbrado", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@procesado", Global.System.Data.SqlDbType.Bit, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "procesado", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fechaProceso", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaProceso", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE [CXP_XmlCfdi] SET [rfcEmisor] = @rfcEmisor, [rfcReceptor] = @rfcReceptor, "& _ 
@@ -1493,29 +1586,33 @@ Namespace XML_CXPDSTableAdapters
                 "ados] = @totImpTrasladados, [uuid] = @uuid, [nombreProv] = @nombreProv, [moneda]"& _ 
                 " = @moneda, [mPago] = @mPago, [fPago] = @fPago, [tipoCambio] = @tipoCambio, [tCo"& _ 
                 "mprobante] = @tComprobante, [serie] = @serie, [folio] = @folio, [fechaEmision] ="& _ 
-                " @fechaEmision, [fechaTimbrado] = @fechaTimbrado WHERE (([idXmlCfdi] = @Original"& _ 
-                "_idXmlCfdi) AND ((@IsNull_rfcEmisor = 1 AND [rfcEmisor] IS NULL) OR ([rfcEmisor]"& _ 
-                " = @Original_rfcEmisor)) AND ((@IsNull_rfcReceptor = 1 AND [rfcReceptor] IS NULL"& _ 
-                ") OR ([rfcReceptor] = @Original_rfcReceptor)) AND ((@IsNull_montoTotal = 1 AND ["& _ 
-                "montoTotal] IS NULL) OR ([montoTotal] = @Original_montoTotal)) AND ((@IsNull_tot"& _ 
-                "ImpRetenidos = 1 AND [totImpRetenidos] IS NULL) OR ([totImpRetenidos] = @Origina"& _ 
-                "l_totImpRetenidos)) AND ((@IsNull_totImpTrasladados = 1 AND [totImpTrasladados] "& _ 
-                "IS NULL) OR ([totImpTrasladados] = @Original_totImpTrasladados)) AND ([uuid] = @"& _ 
-                "Original_uuid) AND ((@IsNull_nombreProv = 1 AND [nombreProv] IS NULL) OR ([nombr"& _ 
-                "eProv] = @Original_nombreProv)) AND ((@IsNull_moneda = 1 AND [moneda] IS NULL) O"& _ 
-                "R ([moneda] = @Original_moneda)) AND ((@IsNull_mPago = 1 AND [mPago] IS NULL) OR"& _ 
-                " ([mPago] = @Original_mPago)) AND ((@IsNull_fPago = 1 AND [fPago] IS NULL) OR (["& _ 
-                "fPago] = @Original_fPago)) AND ((@IsNull_tipoCambio = 1 AND [tipoCambio] IS NULL"& _ 
-                ") OR ([tipoCambio] = @Original_tipoCambio)) AND ((@IsNull_tComprobante = 1 AND ["& _ 
-                "tComprobante] IS NULL) OR ([tComprobante] = @Original_tComprobante)) AND ((@IsNu"& _ 
-                "ll_serie = 1 AND [serie] IS NULL) OR ([serie] = @Original_serie)) AND ((@IsNull_"& _ 
-                "folio = 1 AND [folio] IS NULL) OR ([folio] = @Original_folio)) AND ((@IsNull_fec"& _ 
-                "haEmision = 1 AND [fechaEmision] IS NULL) OR ([fechaEmision] = @Original_fechaEm"& _ 
-                "ision)) AND ((@IsNull_fechaTimbrado = 1 AND [fechaTimbrado] IS NULL) OR ([fechaT"& _ 
-                "imbrado] = @Original_fechaTimbrado)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmisor, rfcReceptor"& _ 
-                ", montoTotal, totImpRetenidos, totImpTrasladados, uuid, nombreProv, moneda, mPag"& _ 
-                "o, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado FR"& _ 
-                "OM CXP_XmlCfdi WHERE (idXmlCfdi = @idXmlCfdi) AND (uuid = @uuid)"
+                " @fechaEmision, [fechaTimbrado] = @fechaTimbrado, [procesado] = @procesado, [fec"& _ 
+                "haProceso] = @fechaProceso WHERE (([idXmlCfdi] = @Original_idXmlCfdi) AND ((@IsN"& _ 
+                "ull_rfcEmisor = 1 AND [rfcEmisor] IS NULL) OR ([rfcEmisor] = @Original_rfcEmisor"& _ 
+                ")) AND ((@IsNull_rfcReceptor = 1 AND [rfcReceptor] IS NULL) OR ([rfcReceptor] = "& _ 
+                "@Original_rfcReceptor)) AND ((@IsNull_montoTotal = 1 AND [montoTotal] IS NULL) O"& _ 
+                "R ([montoTotal] = @Original_montoTotal)) AND ((@IsNull_totImpRetenidos = 1 AND ["& _ 
+                "totImpRetenidos] IS NULL) OR ([totImpRetenidos] = @Original_totImpRetenidos)) AN"& _ 
+                "D ((@IsNull_totImpTrasladados = 1 AND [totImpTrasladados] IS NULL) OR ([totImpTr"& _ 
+                "asladados] = @Original_totImpTrasladados)) AND ([uuid] = @Original_uuid) AND ((@"& _ 
+                "IsNull_nombreProv = 1 AND [nombreProv] IS NULL) OR ([nombreProv] = @Original_nom"& _ 
+                "breProv)) AND ((@IsNull_moneda = 1 AND [moneda] IS NULL) OR ([moneda] = @Origina"& _ 
+                "l_moneda)) AND ((@IsNull_mPago = 1 AND [mPago] IS NULL) OR ([mPago] = @Original_"& _ 
+                "mPago)) AND ((@IsNull_fPago = 1 AND [fPago] IS NULL) OR ([fPago] = @Original_fPa"& _ 
+                "go)) AND ((@IsNull_tipoCambio = 1 AND [tipoCambio] IS NULL) OR ([tipoCambio] = @"& _ 
+                "Original_tipoCambio)) AND ((@IsNull_tComprobante = 1 AND [tComprobante] IS NULL)"& _ 
+                " OR ([tComprobante] = @Original_tComprobante)) AND ((@IsNull_serie = 1 AND [seri"& _ 
+                "e] IS NULL) OR ([serie] = @Original_serie)) AND ((@IsNull_folio = 1 AND [folio] "& _ 
+                "IS NULL) OR ([folio] = @Original_folio)) AND ((@IsNull_fechaEmision = 1 AND [fec"& _ 
+                "haEmision] IS NULL) OR ([fechaEmision] = @Original_fechaEmision)) AND ((@IsNull_"& _ 
+                "fechaTimbrado = 1 AND [fechaTimbrado] IS NULL) OR ([fechaTimbrado] = @Original_f"& _ 
+                "echaTimbrado)) AND ((@IsNull_procesado = 1 AND [procesado] IS NULL) OR ([procesa"& _ 
+                "do] = @Original_procesado)) AND ((@IsNull_fechaProceso = 1 AND [fechaProceso] IS"& _ 
+                " NULL) OR ([fechaProceso] = @Original_fechaProceso)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmi"& _ 
+                "sor, rfcReceptor, montoTotal, totImpRetenidos, totImpTrasladados, uuid, nombrePr"& _ 
+                "ov, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, "& _ 
+                "fechaTimbrado, procesado, fechaProceso FROM CXP_XmlCfdi WHERE (idXmlCfdi = @idXm"& _ 
+                "lCfdi) AND (uuid = @uuid)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcEmisor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcReceptor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcReceptor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -1533,6 +1630,8 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@folio", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "folio", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fechaEmision", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaEmision", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fechaTimbrado", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaTimbrado", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@procesado", Global.System.Data.SqlDbType.Bit, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "procesado", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@fechaProceso", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaProceso", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_idXmlCfdi", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "idXmlCfdi", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_rfcEmisor", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_rfcEmisor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -1565,6 +1664,10 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fechaEmision", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaEmision", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_fechaTimbrado", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaTimbrado", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fechaTimbrado", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaTimbrado", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_procesado", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "procesado", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_procesado", Global.System.Data.SqlDbType.Bit, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "procesado", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_fechaProceso", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaProceso", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_fechaProceso", Global.System.Data.SqlDbType.DateTime, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "fechaProceso", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idXmlCfdi", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "idXmlCfdi", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
@@ -1583,7 +1686,8 @@ Namespace XML_CXPDSTableAdapters
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        idXmlCfdi, rfcEmisor, rfcReceptor, montoTotal, totImpRetenidos, tot"& _ 
                 "ImpTrasladados, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante"& _ 
-                ", serie, folio, fechaEmision, fechaTimbrado"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            CXP_XmlCfdi"
+                ", serie, folio, fechaEmision, fechaTimbrado, procesado, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                      "& _ 
+                "   fechaProceso"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            CXP_XmlCfdi"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
@@ -1666,7 +1770,9 @@ Namespace XML_CXPDSTableAdapters
                     ByVal Original_serie As String,  _
                     ByVal Original_folio As String,  _
                     ByVal Original_fechaEmision As String,  _
-                    ByVal Original_fechaTimbrado As String) As Integer
+                    ByVal Original_fechaTimbrado As String,  _
+                    ByVal Original_procesado As Global.System.Nullable(Of Boolean),  _
+                    ByVal Original_fechaProceso As Global.System.Nullable(Of Date)) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_idXmlCfdi,Decimal)
             If (Original_rfcEmisor Is Nothing) Then
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(1,Object)
@@ -1778,6 +1884,20 @@ Namespace XML_CXPDSTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(30).Value = CType(0,Object)
                 Me.Adapter.DeleteCommand.Parameters(31).Value = CType(Original_fechaTimbrado,String)
             End If
+            If (Original_procesado.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(32).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(33).Value = CType(Original_procesado.Value,Boolean)
+            Else
+                Me.Adapter.DeleteCommand.Parameters(32).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(33).Value = Global.System.DBNull.Value
+            End If
+            If (Original_fechaProceso.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(34).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(35).Value = CType(Original_fechaProceso.Value,Date)
+            Else
+                Me.Adapter.DeleteCommand.Parameters(34).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(35).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -1813,7 +1933,9 @@ Namespace XML_CXPDSTableAdapters
                     ByVal serie As String,  _
                     ByVal folio As String,  _
                     ByVal fechaEmision As String,  _
-                    ByVal fechaTimbrado As String) As Integer
+                    ByVal fechaTimbrado As String,  _
+                    ByVal procesado As Global.System.Nullable(Of Boolean),  _
+                    ByVal fechaProceso As Global.System.Nullable(Of Date)) As Integer
             If (rfcEmisor Is Nothing) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
@@ -1894,6 +2016,16 @@ Namespace XML_CXPDSTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(15).Value = CType(fechaTimbrado,String)
             End If
+            If (procesado.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(16).Value = CType(procesado.Value,Boolean)
+            Else
+                Me.Adapter.InsertCommand.Parameters(16).Value = Global.System.DBNull.Value
+            End If
+            If (fechaProceso.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(17).Value = CType(fechaProceso.Value,Date)
+            Else
+                Me.Adapter.InsertCommand.Parameters(17).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -1930,6 +2062,8 @@ Namespace XML_CXPDSTableAdapters
                     ByVal folio As String,  _
                     ByVal fechaEmision As String,  _
                     ByVal fechaTimbrado As String,  _
+                    ByVal procesado As Global.System.Nullable(Of Boolean),  _
+                    ByVal fechaProceso As Global.System.Nullable(Of Date),  _
                     ByVal Original_idXmlCfdi As Decimal,  _
                     ByVal Original_rfcEmisor As String,  _
                     ByVal Original_rfcReceptor As String,  _
@@ -1947,6 +2081,8 @@ Namespace XML_CXPDSTableAdapters
                     ByVal Original_folio As String,  _
                     ByVal Original_fechaEmision As String,  _
                     ByVal Original_fechaTimbrado As String,  _
+                    ByVal Original_procesado As Global.System.Nullable(Of Boolean),  _
+                    ByVal Original_fechaProceso As Global.System.Nullable(Of Date),  _
                     ByVal idXmlCfdi As Decimal) As Integer
             If (rfcEmisor Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
@@ -2028,118 +2164,142 @@ Namespace XML_CXPDSTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(15).Value = CType(fechaTimbrado,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_idXmlCfdi,Decimal)
-            If (Original_rfcEmisor Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = Global.System.DBNull.Value
+            If (procesado.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(procesado.Value,Boolean)
             Else
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_rfcEmisor,String)
+                Me.Adapter.UpdateCommand.Parameters(16).Value = Global.System.DBNull.Value
             End If
-            If (Original_rfcReceptor Is Nothing) Then
+            If (fechaProceso.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(fechaProceso.Value,Date)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(17).Value = Global.System.DBNull.Value
+            End If
+            Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_idXmlCfdi,Decimal)
+            If (Original_rfcEmisor Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(19).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(20).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(19).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_rfcReceptor,String)
+                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_rfcEmisor,String)
             End If
-            If (Original_montoTotal.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(21).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_montoTotal.Value,Decimal)
-            Else
+            If (Original_rfcReceptor Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(21).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(22).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(21).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_rfcReceptor,String)
             End If
-            If (Original_totImpRetenidos.HasValue = true) Then
+            If (Original_montoTotal.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(23).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_totImpRetenidos.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_montoTotal.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(23).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(24).Value = Global.System.DBNull.Value
             End If
-            If (Original_totImpTrasladados.HasValue = true) Then
+            If (Original_totImpRetenidos.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(25).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_totImpTrasladados.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_totImpRetenidos.Value,Decimal)
             Else
                 Me.Adapter.UpdateCommand.Parameters(25).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(26).Value = Global.System.DBNull.Value
             End If
+            If (Original_totImpTrasladados.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(27).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(28).Value = CType(Original_totImpTrasladados.Value,Decimal)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(27).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(28).Value = Global.System.DBNull.Value
+            End If
             If (Original_uuid Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_uuid")
             Else
-                Me.Adapter.UpdateCommand.Parameters(27).Value = CType(Original_uuid,String)
+                Me.Adapter.UpdateCommand.Parameters(29).Value = CType(Original_uuid,String)
             End If
             If (Original_nombreProv Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(28).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(29).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(28).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(29).Value = CType(Original_nombreProv,String)
-            End If
-            If (Original_moneda Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(30).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(31).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(30).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(Original_moneda,String)
+                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(Original_nombreProv,String)
             End If
-            If (Original_mPago Is Nothing) Then
+            If (Original_moneda Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(32).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(33).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(32).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(Original_mPago,String)
+                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(Original_moneda,String)
             End If
-            If (Original_fPago Is Nothing) Then
+            If (Original_mPago Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(34).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(35).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(34).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(Original_fPago,String)
+                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(Original_mPago,String)
             End If
-            If (Original_tipoCambio.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(36).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(37).Value = CType(Original_tipoCambio.Value,Decimal)
-            Else
+            If (Original_fPago Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(36).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(37).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(36).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(37).Value = CType(Original_fPago,String)
             End If
-            If (Original_tComprobante Is Nothing) Then
+            If (Original_tipoCambio.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(38).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(39).Value = CType(Original_tipoCambio.Value,Decimal)
+            Else
                 Me.Adapter.UpdateCommand.Parameters(38).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(39).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(38).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(39).Value = CType(Original_tComprobante,String)
             End If
-            If (Original_serie Is Nothing) Then
+            If (Original_tComprobante Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(40).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(41).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(40).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(41).Value = CType(Original_serie,String)
+                Me.Adapter.UpdateCommand.Parameters(41).Value = CType(Original_tComprobante,String)
             End If
-            If (Original_folio Is Nothing) Then
+            If (Original_serie Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(42).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(43).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(42).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(43).Value = CType(Original_folio,String)
+                Me.Adapter.UpdateCommand.Parameters(43).Value = CType(Original_serie,String)
             End If
-            If (Original_fechaEmision Is Nothing) Then
+            If (Original_folio Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(44).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(45).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(44).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(45).Value = CType(Original_fechaEmision,String)
+                Me.Adapter.UpdateCommand.Parameters(45).Value = CType(Original_folio,String)
             End If
-            If (Original_fechaTimbrado Is Nothing) Then
+            If (Original_fechaEmision Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(46).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(47).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.UpdateCommand.Parameters(46).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(47).Value = CType(Original_fechaTimbrado,String)
+                Me.Adapter.UpdateCommand.Parameters(47).Value = CType(Original_fechaEmision,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(48).Value = CType(idXmlCfdi,Decimal)
+            If (Original_fechaTimbrado Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(48).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(49).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(48).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(49).Value = CType(Original_fechaTimbrado,String)
+            End If
+            If (Original_procesado.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(50).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(51).Value = CType(Original_procesado.Value,Boolean)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(50).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(51).Value = Global.System.DBNull.Value
+            End If
+            If (Original_fechaProceso.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(52).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(53).Value = CType(Original_fechaProceso.Value,Date)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(52).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(53).Value = Global.System.DBNull.Value
+            End If
+            Me.Adapter.UpdateCommand.Parameters(54).Value = CType(idXmlCfdi,Decimal)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -2175,6 +2335,8 @@ Namespace XML_CXPDSTableAdapters
                     ByVal folio As String,  _
                     ByVal fechaEmision As String,  _
                     ByVal fechaTimbrado As String,  _
+                    ByVal procesado As Global.System.Nullable(Of Boolean),  _
+                    ByVal fechaProceso As Global.System.Nullable(Of Date),  _
                     ByVal Original_idXmlCfdi As Decimal,  _
                     ByVal Original_rfcEmisor As String,  _
                     ByVal Original_rfcReceptor As String,  _
@@ -2191,8 +2353,10 @@ Namespace XML_CXPDSTableAdapters
                     ByVal Original_serie As String,  _
                     ByVal Original_folio As String,  _
                     ByVal Original_fechaEmision As String,  _
-                    ByVal Original_fechaTimbrado As String) As Integer
-            Return Me.Update(rfcEmisor, rfcReceptor, montoTotal, totImpRetenidos, totImpTrasladados, Original_uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, Original_idXmlCfdi, Original_rfcEmisor, Original_rfcReceptor, Original_montoTotal, Original_totImpRetenidos, Original_totImpTrasladados, Original_uuid, Original_nombreProv, Original_moneda, Original_mPago, Original_fPago, Original_tipoCambio, Original_tComprobante, Original_serie, Original_folio, Original_fechaEmision, Original_fechaTimbrado, Original_idXmlCfdi)
+                    ByVal Original_fechaTimbrado As String,  _
+                    ByVal Original_procesado As Global.System.Nullable(Of Boolean),  _
+                    ByVal Original_fechaProceso As Global.System.Nullable(Of Date)) As Integer
+            Return Me.Update(rfcEmisor, rfcReceptor, montoTotal, totImpRetenidos, totImpTrasladados, Original_uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, procesado, fechaProceso, Original_idXmlCfdi, Original_rfcEmisor, Original_rfcReceptor, Original_montoTotal, Original_totImpRetenidos, Original_totImpTrasladados, Original_uuid, Original_nombreProv, Original_moneda, Original_mPago, Original_fPago, Original_tipoCambio, Original_tComprobante, Original_serie, Original_folio, Original_fechaEmision, Original_fechaTimbrado, Original_procesado, Original_fechaProceso, Original_idXmlCfdi)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
