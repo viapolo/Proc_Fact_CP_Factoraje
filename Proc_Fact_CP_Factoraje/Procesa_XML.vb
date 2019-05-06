@@ -20,10 +20,7 @@ Module Procesa_XML
         procesaXmlCxpA()
         procesaXmlCxpF()
 
-        For Each Archivo As String In My.Computer.FileSystem.GetFiles(
-                                path,
-                                FileIO.SearchOption.SearchTopLevelOnly,
-                                "*.xml")
+        For Each Archivo As String In My.Computer.FileSystem.GetFiles(path, FileIO.SearchOption.SearchTopLevelOnly, "*.xml")
 
             Dim nombre() As String = My.Computer.FileSystem.GetName(Archivo).Split(".")
 
@@ -33,6 +30,8 @@ Module Procesa_XML
             cadena = New StreamReader(Archivo)
             cadXML = cadena.ReadToEnd
             cadena.Close()
+            cadena.Dispose()
+
 
             Dim var As String = ""
             Dim folio As String = leeXMLF(cadXML, "Folio")
@@ -72,19 +71,31 @@ Module Procesa_XML
                 End If
 
                 System.IO.File.Copy(Archivo, path & "I_Procesados\" & uuid & ".xml", True)
+                cadena.Close()
+                cadena.Dispose()
                 'System.IO.File.Copy(path & nombre(0) & ".pdf", path & "I_Procesados\" & uuid & ".pdf", True)
             ElseIf tcomprobante = "P" Then
                 If System.IO.File.Exists(path & nombre(0) & ".pdf") Then
                     envia_mail("REDCOFIDI|DIVISION:|CODIGO:", nombre(0))
+
                     System.IO.File.Copy(Archivo, path & "P_Procesados\" & uuid & ".xml", True)
                     System.IO.File.Copy(path & nombre(0) & ".pdf", path & "P_Procesados\" & uuid & ".pdf", True)
+                    cadena.Close()
+                    cadena.Dispose()
                 End If
             Else
-                cadena.Close()
                 System.IO.File.Copy(Archivo, path & "O_Procesados\" & uuid & ".xml", True)
                 System.IO.File.Copy(path & nombre(0) & ".pdf", path & "O_Procesados\" & uuid & ".pdf", True)
+                cadena.Close()
+                cadena.Dispose()
+
             End If
-            File.Delete(Archivo)
+
+            cadena.Close()
+            cadena.Dispose()
+
+            'File.Delete(Archivo)
+            File.Delete(path & nombre(0) & ".xml")
             File.Delete(path & nombre(0) & ".pdf")
         Next
     End Sub
@@ -115,8 +126,14 @@ Module Procesa_XML
 
             Adjunto1.Dispose()
             Adjunto2.Dispose()
+            Mensaje.Dispose()
+            Servidor.Dispose()
 
         Catch ex As Exception
+            Adjunto1.Dispose()
+            Adjunto2.Dispose()
+            Mensaje.Dispose()
+            Servidor.Dispose()
         End Try
     End Sub
 
@@ -216,9 +233,9 @@ Module Procesa_XML
                         retorno = (Comprobante.Value.ToString).Substring(0, 20)
                     End If
                     Return retorno
-                        Exit Function
-                    ElseIf Comprobante.Name = "Fecha" And nodo = "Fecha" Then
-                        retorno = Comprobante.Value.ToString
+                    Exit Function
+                ElseIf Comprobante.Name = "Fecha" And nodo = "Fecha" Then
+                    retorno = Comprobante.Value.ToString
                     Return retorno
                     Exit Function
                 End If
@@ -270,8 +287,13 @@ Module Procesa_XML
                     dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
                     System.IO.File.Move(Archivo, pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
                     System.IO.File.Move(pathCxpA & nombre(0) & ".pdf", pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    'WriteLine("Se insertó el UUID: " & leeXMLF(cadXML, "UUID").ToString)
+                Else
+                    System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                    System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                 End If
             Catch ex As Exception
+                'WriteLine(ex.ToString)
             End Try
         Next
     End Sub
@@ -299,10 +321,24 @@ Module Procesa_XML
             Try
                 If dtCxp.Existe_ScalarQuery(leeXMLF(cadXML, "UUID")).ToString = "NE" Then
                     dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
-                    System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
-                    System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    If File.Exists(pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml") Then
+                        System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                        System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    Else
+                        File.Delete(pathCxpF & nombre(0) & ".xml")
+                        File.Delete(pathCxpF & nombre(0) & ".pdf")
+                    End If
+                Else
+                    If File.Exists(pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml") Then
+                        System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                        System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    Else
+                        File.Delete(pathCxpF & nombre(0) & ".xml")
+                        File.Delete(pathCxpF & nombre(0) & ".pdf")
+                    End If
                 End If
             Catch ex As Exception
+
             End Try
         Next
     End Sub
