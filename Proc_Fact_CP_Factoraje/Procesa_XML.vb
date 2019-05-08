@@ -263,15 +263,13 @@ Module Procesa_XML
     End Function
 
     Public Sub procesaXmlCxpA()
-        Dim dtCxp As New XML_CXPDSTableAdapters.CXP_XmlCfdiTableAdapter
+        Dim dtCxp As New XML_CXPDSTableAdapters.CXP_XmlCfdi2TableAdapter
 
         Dim D As System.IO.DirectoryInfo
         D = New System.IO.DirectoryInfo(pathCxpA)
+        Dim res As readXML_CFDI_class = New readXML_CFDI_class
 
-        For Each Archivo As String In My.Computer.FileSystem.GetFiles(
-                                pathCxpA,
-                                FileIO.SearchOption.SearchTopLevelOnly,
-                                "*.xml")
+        For Each Archivo As String In My.Computer.FileSystem.GetFiles(pathCxpA, FileIO.SearchOption.SearchTopLevelOnly, "*.xml")
 
             Dim nombre() As String = My.Computer.FileSystem.GetName(Archivo).Split(".")
 
@@ -284,25 +282,97 @@ Module Procesa_XML
 
             Try
                 If dtCxp.Existe_ScalarQuery(leeXMLF(cadXML, "UUID")).ToString = "NE" Then
-                    dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
-                    System.IO.File.Move(Archivo, pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
-                    System.IO.File.Move(pathCxpA & nombre(0) & ".pdf", pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    'dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
+                    Dim conceptos As XmlNode = res.LeeXML_Conceptos(Archivo, "Concepto")
+                    Dim contDetalle As Integer = 0
+                    For Each detalle_conceptos As XmlNode In conceptos.ChildNodes
+                        If detalle_conceptos.Name = "cfdi:Concepto" Then
+                            For Each concepto_hijos As XmlNode In detalle_conceptos.ChildNodes
+                                If concepto_hijos.Name = "cfdi:Impuestos" Then
+                                    For Each impuestos_detalle As XmlNode In concepto_hijos.ChildNodes
+                                        If impuestos_detalle.Name = "cfdi:Traslados" Then
+                                            Dim Base As String = ""
+                                            Dim Impuesto As String = ""
+                                            Dim Tipofactor As String = ""
+                                            Dim TasaOCuota As String = ""
+                                            Dim ImporteImpuesto As String = ""
+                                            For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
+                                                If impuestos_traslado.Name = "cfdi:Traslado" Then
+                                                    For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
+                                                        If impuestos_traslado_atributos.Name = "Base" Then
+                                                            Base = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
+                                                            Impuesto = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
+                                                            Tipofactor = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
+                                                            TasaOCuota = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Importe" Then
+                                                            ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
+                                                        End If
+                                                    Next
+                                                    'Insert
+                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", CDec(res.LeeXML(Archivo, "Total")), contDetalle.ToString, Tipofactor, CDec(TasaOCuota))
+                                                End If
+                                            Next
+                                        End If
+                                        If impuestos_detalle.Name = "cfdi:Retenciones" Then
+                                            Dim Base As String = ""
+                                            Dim Impuesto As String = ""
+                                            Dim Tipofactor As String = ""
+                                            Dim TasaOCuota As String = ""
+                                            Dim ImporteImpuesto As String = ""
+                                            For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
+                                                If impuestos_traslado.Name = "cfdi:Retencion" Then
+                                                    For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
+                                                        If impuestos_traslado_atributos.Name = "Base" Then
+                                                            Base = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
+                                                            Impuesto = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
+                                                            Tipofactor = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
+                                                            TasaOCuota = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Importe" Then
+                                                            ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
+                                                        End If
+                                                    Next
+                                                    'Insert
+                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", CDec(res.LeeXML(Archivo, "Total")), contDetalle.ToString, Tipofactor, CDec(TasaOCuota))
+                                                End If
+                                            Next
+
+                                        End If
+                                    Next
+                                End If
+                                contDetalle += 1
+
+                            Next
+                        End If
+                    Next
+
+                    'dtCxp.Insert(res.LeeXML(cadXML, "RFCE"), res.LeeXML(cadXML, "RFCR"), res.LeeXML(cadXML, "SubTotal"), res.LeeXML(cadXML, "SubTotal"))
+                    'System.IO.File.Move(Archivo, pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                    'System.IO.File.Move(pathCxpA & nombre(0) & ".pdf", pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                     'WriteLine("Se insertó el UUID: " & leeXMLF(cadXML, "UUID").ToString)
                 Else
-                    System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
-                    System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    System.IO.File.Move(Archivo, pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                    System.IO.File.Move(pathCxpA & nombre(0) & ".pdf", pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                 End If
             Catch ex As Exception
                 'WriteLine(ex.ToString)
             End Try
+            File.Delete(Archivo)
+            File.Delete(pathCxpA & nombre(0) & ".pdf")
         Next
     End Sub
 
     Public Sub procesaXmlCxpF()
-        Dim dtCxp As New XML_CXPDSTableAdapters.CXP_XmlCfdiTableAdapter
+        Dim dtCxp As New XML_CXPDSTableAdapters.CXP_XmlCfdi2TableAdapter
 
         Dim D As System.IO.DirectoryInfo
         D = New System.IO.DirectoryInfo(pathCxpF)
+        Dim res As readXML_CFDI_class = New readXML_CFDI_class
 
         For Each Archivo As String In My.Computer.FileSystem.GetFiles(
                                 pathCxpF,
@@ -320,26 +390,88 @@ Module Procesa_XML
 
             Try
                 If dtCxp.Existe_ScalarQuery(leeXMLF(cadXML, "UUID")).ToString = "NE" Then
-                    dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
-                    If File.Exists(pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml") Then
-                        System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
-                        System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
-                    Else
-                        File.Delete(pathCxpF & nombre(0) & ".xml")
-                        File.Delete(pathCxpF & nombre(0) & ".pdf")
-                    End If
+                    'dtCxp.Insert(leeXMLF(cadXML, "RFCE"), leeXMLF(cadXML, "RFCR"), CDbl(leeXMLF(cadXML, "Total")), CDbl(leeXMLF(cadXML, "TIR")), CDbl(leeXMLF(cadXML, "TIT")), leeXMLF(cadXML, "UUID"), leeXMLF(cadXML, "NombreE"), leeXMLF(cadXML, "Moneda"), leeXMLF(cadXML, "MetodoPago"), leeXMLF(cadXML, "FormaPago"), CDbl(leeXMLF(cadXML, "TipoCambio")), leeXMLF(cadXML, "TipoDeComprobante"), leeXMLF(cadXML, "Serie"), leeXMLF(cadXML, "Folio"), leeXMLF(cadXML, "Fecha"), leeXMLF(cadXML, "FechaT"), False, Date.Now)
+                    Dim conceptos As XmlNode = Res.LeeXML_Conceptos(Archivo, "Concepto")
+                    Dim contDetalle As Integer = 0
+                    For Each detalle_conceptos As XmlNode In conceptos.ChildNodes
+                        If detalle_conceptos.Name = "cfdi:Concepto" Then
+                            For Each concepto_hijos As XmlNode In detalle_conceptos.ChildNodes
+                                If concepto_hijos.Name = "cfdi:Impuestos" Then
+                                    For Each impuestos_detalle As XmlNode In concepto_hijos.ChildNodes
+                                        If impuestos_detalle.Name = "cfdi:Traslados" Then
+                                            Dim Base As String = ""
+                                            Dim Impuesto As String = ""
+                                            Dim Tipofactor As String = ""
+                                            Dim TasaOCuota As String = ""
+                                            Dim ImporteImpuesto As String = ""
+                                            For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
+                                                If impuestos_traslado.Name = "cfdi:Traslado" Then
+                                                    For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
+                                                        If impuestos_traslado_atributos.Name = "Base" Then
+                                                            Base = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
+                                                            Impuesto = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
+                                                            Tipofactor = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
+                                                            TasaOCuota = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Importe" Then
+                                                            ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
+                                                        End If
+                                                    Next
+                                                    'Insert
+                                                    dtCxp.Insert(Res.LeeXML(Archivo, "RFCE"), Res.LeeXML(Archivo, "RFCR"), CDec(Res.LeeXML(Archivo, "SubTotal")), Impuesto, CDec(ImporteImpuesto), Res.LeeXML(Archivo, "UUID"), Res.LeeXML(Archivo, "NombreE"), Res.LeeXML(Archivo, "Moneda"), Res.LeeXML(Archivo, "MetodoPago"), Res.LeeXML(Archivo, "FormaPago"), CDec(Res.LeeXML(Archivo, "TipoCambio")), Res.LeeXML(Archivo, "TipoDeComprobante"), Res.LeeXML(Archivo, "Serie"), Res.LeeXML(Archivo, "Folio"), Res.LeeXML(Archivo, "Fecha"), Res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", CDec(Res.LeeXML(Archivo, "Total")), contDetalle.ToString, Tipofactor, CDec(TasaOCuota))
+                                                End If
+                                            Next
+                                        End If
+                                        If impuestos_detalle.Name = "cfdi:Retenciones" Then
+                                            Dim Base As String = ""
+                                            Dim Impuesto As String = ""
+                                            Dim Tipofactor As String = ""
+                                            Dim TasaOCuota As String = ""
+                                            Dim ImporteImpuesto As String = ""
+                                            For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
+                                                If impuestos_traslado.Name = "cfdi:Retencion" Then
+                                                    For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
+                                                        If impuestos_traslado_atributos.Name = "Base" Then
+                                                            Base = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
+                                                            Impuesto = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
+                                                            Tipofactor = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
+                                                            TasaOCuota = impuestos_traslado_atributos.Value.ToString
+                                                        ElseIf impuestos_traslado_atributos.Name = "Importe" Then
+                                                            ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
+                                                        End If
+                                                    Next
+                                                    'Insert
+                                                    dtCxp.Insert(Res.LeeXML(Archivo, "RFCE"), Res.LeeXML(Archivo, "RFCR"), CDec(Res.LeeXML(Archivo, "SubTotal")), Impuesto, CDec(ImporteImpuesto), Res.LeeXML(Archivo, "UUID"), Res.LeeXML(Archivo, "NombreE"), Res.LeeXML(Archivo, "Moneda"), Res.LeeXML(Archivo, "MetodoPago"), Res.LeeXML(Archivo, "FormaPago"), CDec(Res.LeeXML(Archivo, "TipoCambio")), Res.LeeXML(Archivo, "TipoDeComprobante"), Res.LeeXML(Archivo, "Serie"), Res.LeeXML(Archivo, "Folio"), Res.LeeXML(Archivo, "Fecha"), Res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", CDec(Res.LeeXML(Archivo, "Total")), contDetalle.ToString, Tipofactor, CDec(TasaOCuota))
+                                                End If
+                                            Next
+
+                                        End If
+                                    Next
+                                End If
+                                contDetalle += 1
+
+                            Next
+                        End If
+                    Next
+
+                    'dtCxp.Insert(res.LeeXML(cadXML, "RFCE"), res.LeeXML(cadXML, "RFCR"), res.LeeXML(cadXML, "SubTotal"), res.LeeXML(cadXML, "SubTotal"))
+                    'System.IO.File.Move(Archivo, pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                    'System.IO.File.Move(pathCxpA & nombre(0) & ".pdf", pathCxpA & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
+                    'WriteLine("Se insertó el UUID: " & leeXMLF(cadXML, "UUID").ToString)
                 Else
-                    If File.Exists(pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml") Then
-                        System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
-                        System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
-                    Else
-                        File.Delete(pathCxpF & nombre(0) & ".xml")
-                        File.Delete(pathCxpF & nombre(0) & ".pdf")
-                    End If
+                    System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
+                    System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                 End If
             Catch ex As Exception
-
+                'WriteLine(ex.ToString)
             End Try
+            File.Delete(Archivo)
+            File.Delete(pathCxpF & nombre(0) & ".pdf")
         Next
     End Sub
 
