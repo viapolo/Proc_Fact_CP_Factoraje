@@ -30,7 +30,7 @@ Module Procesa_XML
             cadena = New StreamReader(Archivo)
             cadXML = cadena.ReadToEnd
             cadena.Close()
-            cadena.Dispose()
+            'cadena.Dispose()
 
 
             Dim var As String = ""
@@ -231,6 +231,12 @@ Module Procesa_XML
                 ElseIf (Comprobante.Name = "Folio" Or Comprobante.Name = "folio") And nodo = "Folio" Then
                     If Comprobante.Value.ToString.Length > 19 Then
                         retorno = (Comprobante.Value.ToString).Substring(0, 20)
+                    Else
+                        retorno = Comprobante.Value.ToString
+                    End If
+
+                    If Comprobante.Value.ToString = "" Then
+                        retorno = 0
                     End If
                     Return retorno
                     Exit Function
