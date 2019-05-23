@@ -331,7 +331,35 @@ Public Class readXML_CFDI_class
                 Return resultado
             Next
         End If
+        If nodo = "implocalR" Then
+            Dim nsmgr As XmlNamespaceManager = New XmlNamespaceManager(doc.NameTable)
+            nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3")
+            nsmgr.AddNamespace("implocal", "http://www.sat.gob.mx/implocal")
+            Dim nodeList As XmlNodeList
+            Dim root As XmlElement = doc.DocumentElement
 
+            nodeList = root.SelectNodes("//implocal:ImpuestosLocales/@TotaldeRetenciones", nsmgr)
+            Dim totalRet As XmlNode
+            For Each totalRet In nodeList
+                resultado = totalRet.Value.ToString
+                Return resultado
+            Next
+        End If
+
+        If nodo = "implocalT" Then
+            Dim nsmgr As XmlNamespaceManager = New XmlNamespaceManager(doc.NameTable)
+            nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3")
+            nsmgr.AddNamespace("implocal", "http://www.sat.gob.mx/implocal")
+            Dim nodeList As XmlNodeList
+            Dim root As XmlElement = doc.DocumentElement
+
+            nodeList = root.SelectNodes("//implocal:ImpuestosLocales/@TotaldeTraslados", nsmgr)
+            Dim totalRet As XmlNode
+            For Each totalRet In nodeList
+                resultado = totalRet.Value.ToString
+                Return resultado
+            Next
+        End If
         If nodo = "FechaTimbrado" Then
             Dim nsmgr As XmlNamespaceManager = New XmlNamespaceManager(doc.NameTable)
             nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3")
