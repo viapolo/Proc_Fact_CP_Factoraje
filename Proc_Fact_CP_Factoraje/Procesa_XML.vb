@@ -316,8 +316,8 @@ Module Procesa_XML
                                             Dim Base As String = ""
                                             Dim Impuesto As String = ""
                                             Dim Tipofactor As String = ""
-                                            Dim TasaOCuota As String = ""
-                                            Dim ImporteImpuesto As String = ""
+                                            Dim TasaOCuota As String = "0"
+                                            Dim ImporteImpuesto As String = "0"
                                             For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
                                                 If impuestos_traslado.Name = "cfdi:Traslado" Then
                                                     For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
@@ -442,8 +442,8 @@ Module Procesa_XML
                                             Dim Base As String = ""
                                             Dim Impuesto As String = ""
                                             Dim Tipofactor As String = ""
-                                            Dim TasaOCuota As String = ""
-                                            Dim ImporteImpuesto As String = ""
+                                            Dim TasaOCuota As String = "0"
+                                            Dim ImporteImpuesto As String = "0"
                                             For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
                                                 If impuestos_traslado.Name = "cfdi:Traslado" Then
                                                     For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
@@ -513,6 +513,7 @@ Module Procesa_XML
                 End If
             Catch ex As Exception
                 'WriteLine(ex.ToString)
+                MsgBox(ex.ToString)
             End Try
             File.Delete(Archivo)
             File.Delete(pathCxpF & nombre(0) & ".pdf")
