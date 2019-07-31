@@ -378,7 +378,7 @@ Public Class readXML_CFDI_class
             Next
         End If
 
-        If nodo = "ComplementoXML" Or nodo = "ComplementoXMLCfdi" Then
+        If nodo = "ComplementoXML" Or nodo = "ComplementoXMLCfdi" Or nodo="Edenred" Then
             Dim ecc12cA(,) As String
             For Each Comp As XmlNode In comprobante.ChildNodes
                 If Comp.Name = "cfdi:Addenda" Then
@@ -389,6 +389,14 @@ Public Class readXML_CFDI_class
                                 Return resultado
                                 Exit Function
                             Else
+                                If nodo = "Edenred" Then
+                                    For Each eden As XmlNode In nodos.Attributes
+                                        If eden.Name = "totalGlobal" Then
+                                            resultado = eden.Value
+                                            Return resultado
+                                        End If
+                                    Next
+                                End If
                                 If nodos.Name = "ecsv:EstadoDeCuentaSiVale" Then
                                     For Each ecc12 As XmlNode In nodos.ChildNodes
                                         Dim contCon As Integer = 0
