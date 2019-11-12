@@ -319,7 +319,18 @@ Module Procesa_XML
                                 contDetalle += 1
                                 dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing)
                             End If
+
+
                             For Each concepto_hijos As XmlNode In detalle_conceptos.ChildNodes
+                                If concepto_hijos.Name = "cfdi:ComplementoConcepto" Then
+                                    For Each concepto_hijo_complemento As XmlNode In concepto_hijos.ChildNodes
+                                        If concepto_hijo_complemento.Name = "iedu:instEducativas" Then
+                                            contDetalle += 1
+                                            dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing)
+                                        End If
+                                    Next
+                                End If
+
                                 If concepto_hijos.Name = "cfdi:Impuestos" Then
                                     For Each impuestos_detalle As XmlNode In concepto_hijos.ChildNodes
                                         If impuestos_detalle.Name = "cfdi:Traslados" Then
