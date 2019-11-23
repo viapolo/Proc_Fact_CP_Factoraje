@@ -10,12 +10,21 @@ Module Procesa_XML
     Dim path As String = "\\server-nas\CFDI_CP_Factoraje\"
     Dim pathCxpA As String = "\\server-nas\Contabilidad CFDI\ARCHIVOS ADD CONTPAQi\CFDI_PROV\ARFIN\Todos\"
     Dim pathCxpF As String = "\\server-nas\Contabilidad CFDI\ARCHIVOS ADD CONTPAQi\CFDI_PROV\FINAGIL\Todos\"
+    Dim argumento() As String
     'Dim path As String = "C:\Users\vicente-apolonio\Desktop\temp\"
     Sub Main()
         Dim dtF100 As New XML_FactorajeDSTableAdapters.Vw_ChequesDetalleTableAdapter
         Dim dtWebXML As New XML_FactorajeDSTableAdapters.WEB_FacturasXMLTableAdapter
         Dim D As System.IO.DirectoryInfo
         D = New System.IO.DirectoryInfo(path)
+
+        argumento = Environment.GetCommandLineArgs()
+
+        If argumento.Length > 1 Then
+            If UCase(argumento(1)) = "SALDO" Then
+                enviaSaldoComprobacion()
+            End If
+        End If
 
         procesaXmlCxpA()
         procesaXmlCxpF()
@@ -97,6 +106,60 @@ Module Procesa_XML
             'File.Delete(Archivo)
             File.Delete(path & nombre(0) & ".xml")
             File.Delete(path & nombre(0) & ".pdf")
+        Next
+    End Sub
+
+    Public Sub enviaSaldoComprobacion()
+        Dim taCorreos As New XML_CXPDSTableAdapters.GEN_Correos_SistemaFinagilTableAdapter
+
+        Dim taSaldo As New XML_CXPDSTableAdapters.Vw_CXP_SaldoComprobacionGastosTableAdapter
+        Dim rwSaldo As XML_CXPDS.Vw_CXP_SaldoComprobacionGastosRow
+        Dim rwSaldoDetalle As XML_CXPDS.Vw_CXP_SaldoComprobacionGastosRow
+        Dim dtSaldo As New XML_CXPDS.Vw_CXP_SaldoComprobacionGastosDataTable
+        Dim dtSaldoDetalle As New XML_CXPDS.Vw_CXP_SaldoComprobacionGastosDataTable
+
+        Dim taEmpresas As New XML_CXPDSTableAdapters.CXP_EmpresasTableAdapter
+        Dim rowEmpresas As XML_CXPDS.CXP_EmpresasRow
+        Dim dtEmpresas As New XML_CXPDS.CXP_EmpresasDataTable
+        Dim mensaje As String = ""
+
+        taEmpresas.Fill(dtEmpresas)
+
+        For Each rowEmpresas In dtEmpresas 'recorre empresas
+            taSaldo.ObtSaldoPorUsuario_FillBy(dtSaldo, rowEmpresas.idConceptoGastos)
+
+            For Each rwSaldo In dtSaldo 'recorre usuarios
+                mensaje = "<html><body><font size=3 face=" & Chr(34) & "Arial" & Chr(34) & ">" &
+                    "<h1><font size=3 align" & Chr(34) & "center" & Chr(34) & ">" & "Estimado (a): " & rwSaldo.nombre & vbNewLine & ", le notificamos que cuenta con un saldo pendiente por comprobar:  </font></h1>" &
+                    "<table  align=" & Chr(34) & "center" & Chr(34) & " border=1 cellspacing=0 cellpadding=2>" &
+                    "<tr>" &
+                        "<td>Folio de Solicitud</td>" &
+                        "<td>Beneficiario</td>" &
+                         "<td>Fecha de Solicitud</td>" &
+                        "<td>Importe Solicitado</td>" &
+                        "<td>Importe por Comprobar</td>" &
+                    "</tr>"
+                taSaldo.ObtieneDetalle__FillBy(dtSaldoDetalle, rowEmpresas.idEmpresas, rowEmpresas.idConceptoGastos, rwSaldo.usuario)
+
+                For Each rwSaldoDetalle In dtSaldoDetalle
+                    mensaje = mensaje &
+                    "<tr>" &
+                        "<td>" & rwSaldoDetalle.folioSolicitud & "</td>" &
+                         "<td>" & rwSaldoDetalle.razonSocial & "</td>" &
+                        "<td>" & rwSaldoDetalle.fechaSolicitud & "</td>" &
+                        "<td>" & rwSaldoDetalle.totalPagado.ToString("c") & "</td>" &
+                        "<td>" & rwSaldoDetalle.saldoSolicitud.ToString("c") & "</td>" &
+                    "</tr>"
+                Next
+                mensaje = mensaje & "</table>" & vbNewLine &
+                "<HR width=20%>" &
+                "<tfoot><tr><font align=" & Chr(34) & "center" & Chr(34) & "size=3 face=" & Chr(34) & "Arial" & Chr(34) & ">" & "Atentamente: " & rowEmpresas.razonSocial & vbNewLine & "</font></tr></tfoot>" &
+                     "</body></html>"
+                taCorreos.Insert("Gastos@finagil.com.mx", rwSaldo.mail, "Saldo pendiente por comprobar", mensaje, 0, Date.Now, "")
+                taCorreos.Insert("Gastos@finagil.com.mx", "viapolo@finagil.com.mx", "Saldo pendiente por comprobar", mensaje, 0, Date.Now, "")
+                taCorreos.Insert("Gastos@finagil.com.mx", "lgarcia@finagil.com.mx", "Saldo pendiente por comprobar", mensaje, 0, Date.Now, "")
+            Next
+            dtSaldo.Dispose()
         Next
     End Sub
 
