@@ -141,15 +141,19 @@ Module Procesa_XML
                     "</tr>"
                 taSaldo.ObtieneDetalle__FillBy(dtSaldoDetalle, rowEmpresas.idEmpresas, rowEmpresas.idConceptoGastos, rwSaldo.usuario)
 
+                Dim contDetalle As Integer = 0
                 For Each rwSaldoDetalle In dtSaldoDetalle
-                    mensaje = mensaje &
-                    "<tr>" &
-                        "<td>" & rwSaldoDetalle.folioSolicitud & "</td>" &
-                         "<td>" & rwSaldoDetalle.razonSocial & "</td>" &
-                        "<td>" & rwSaldoDetalle.fechaSolicitud & "</td>" &
-                        "<td>" & rwSaldoDetalle.totalPagado.ToString("c") & "</td>" &
-                        "<td>" & rwSaldoDetalle.saldoSolicitud.ToString("c") & "</td>" &
-                    "</tr>"
+                    If contDetalle < 10 Then
+                        mensaje = mensaje &
+                        "<tr>" &
+                            "<td>" & rwSaldoDetalle.folioSolicitud & "</td>" &
+                            "<td>" & rwSaldoDetalle.razonSocial & "</td>" &
+                            "<td>" & rwSaldoDetalle.fechaSolicitud & "</td>" &
+                            "<td>" & rwSaldoDetalle.totalPagado.ToString("c") & "</td>" &
+                            "<td>" & rwSaldoDetalle.saldoSolicitud.ToString("c") & "</td>" &
+                        "</tr>"
+                    End If
+                    contDetalle += 1
                 Next
                 mensaje = mensaje & "</table>" & vbNewLine &
                 "<HR width=20%>" &
