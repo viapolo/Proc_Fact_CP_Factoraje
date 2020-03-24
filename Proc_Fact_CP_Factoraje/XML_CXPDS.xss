@@ -7,12 +7,12 @@
 <DiagramLayout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ex:showrelationlabel="False" ViewPortX="-10" ViewPortY="-10" xmlns:ex="urn:schemas-microsoft-com:xml-msdatasource-layout-extended" xmlns="urn:schemas-microsoft-com:xml-msdatasource-layout">
   <Shapes>
     <Shape ID="DesignTable:CXP_XmlCfdi" ZOrder="7" X="445" Y="110" Height="305" Width="219" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
-    <Shape ID="DesignTable:CXP_XmlCfdi2" ZOrder="2" X="985" Y="299" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
-    <Shape ID="DesignTable:CXP_Proveedores" ZOrder="3" X="1023" Y="184" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
-    <Shape ID="DesignTable:Vw_CXP_SaldoComprobacionGastos" ZOrder="5" X="92" Y="85" Height="343" Width="328" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
+    <Shape ID="DesignTable:CXP_XmlCfdi2" ZOrder="3" X="985" Y="299" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
+    <Shape ID="DesignTable:CXP_Proveedores" ZOrder="4" X="1023" Y="184" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
+    <Shape ID="DesignTable:Vw_CXP_SaldoComprobacionGastos" ZOrder="1" X="92" Y="85" Height="343" Width="328" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:CXP_ComprobGtos" ZOrder="6" X="717" Y="112" Height="305" Width="254" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
-    <Shape ID="DesignTable:CXP_Empresas" ZOrder="1" X="471" Y="12" Height="115" Width="228" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:GEN_Correos_SistemaFinagil" ZOrder="4" X="1003" Y="81" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
+    <Shape ID="DesignTable:CXP_Empresas" ZOrder="2" X="471" Y="12" Height="115" Width="228" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignTable:GEN_Correos_SistemaFinagil" ZOrder="5" X="1003" Y="81" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

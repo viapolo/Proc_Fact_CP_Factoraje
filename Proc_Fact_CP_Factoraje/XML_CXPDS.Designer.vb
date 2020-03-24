@@ -10888,7 +10888,7 @@ Namespace XML_CXPDSTableAdapters
                 "(day, GETDATE(), GETDATE()) - 5, GETDATE())) AND "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         (CON"& _ 
                 "VERT(datetime, Vw_CXP_SaldoComprobacionGastos.fechaSolicitud, 103) < DATEADD(day"& _ 
                 ", DATEDIFF(day, GETDATE(), GETDATE()), GETDATE()))"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY Vw_CXP_SaldoComprob"& _ 
-                "acionGastos.folioSolicitud"
+                "acionGastos.folioSolicitud DESC"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idEmpresa", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "idEmpresas", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idConcepto", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "idConcepto", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
