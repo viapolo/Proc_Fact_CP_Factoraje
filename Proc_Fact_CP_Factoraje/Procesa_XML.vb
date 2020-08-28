@@ -591,7 +591,7 @@ Module Procesa_XML
                     System.IO.File.Move(pathCxpF & nombre(0) & ".pdf", pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".pdf")
                 End If
             Catch ex As Exception
-                MsgBox(ex.ToString)
+                'MsgBox(ex.ToString)
             End Try
             File.Delete(Archivo)
             File.Delete(pathCxpF & nombre(0) & ".pdf")
