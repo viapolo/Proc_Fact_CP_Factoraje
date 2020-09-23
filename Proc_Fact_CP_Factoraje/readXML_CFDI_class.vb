@@ -187,7 +187,11 @@ Public Class readXML_CFDI_class
                 Return resultado
                 Exit For
             ElseIf (comprobante_atributos.Name = "Descuento" Or comprobante_atributos.Name = "descuento") And nodo = "Descuento" Then
-                resultado = comprobante_atributos.Value.ToString
+                If IsNothing(comprobante_atributos.Value) Or comprobante_atributos.Value.ToString = String.Empty Then
+                    resultado = 0
+                Else
+                    resultado = comprobante_atributos.Value.ToString
+                End If
                 Return resultado
                 Exit For
             ElseIf (comprobante_atributos.Name = "Version" Or comprobante_atributos.Name = "version") And nodo = "Version" Then
