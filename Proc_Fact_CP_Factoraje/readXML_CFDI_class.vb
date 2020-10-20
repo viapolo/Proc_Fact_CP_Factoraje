@@ -295,6 +295,66 @@ Public Class readXML_CFDI_class
             Next
         End If
 
+        'If nodo = "Base" Then
+        '    For Each conceptos As XmlNode In comprobante.ChildNodes
+        '        If conceptos.Name = "cfdi:Conceptos" Then
+        '            For Each concepto As XmlNode In conceptos.ChildNodes
+        '                If concepto.Name = "cfdi:Concepto" Then
+        '                    For Each concepto_childs As XmlNode In concepto.ChildNodes
+        '                        If concepto_childs.Name = "cfdi:Impuestos" Then
+        '                            For Each impuestos As XmlNode In concepto_childs.ChildNodes
+        '                                If impuestos.Name = "cfdi:Traslados" Then
+        '                                    For Each impuestos_child As XmlNode In impuestos.ChildNodes
+        '                                        If impuestos_child.Name = "cfdi:Traslado" Then
+        '                                            For Each impuestos_hijos As XmlNode In impuestos_child.Attributes
+        '                                                If impuestos_hijos.Name = "Base" Then
+        '                                                    resultado = concepto_childs.Value.ToString
+        '                                                    Return resultado
+        '                                                    Exit For
+        '                                                End If
+        '                                            Next
+        '                                        End If
+        '                                    Next
+        '                                End If
+        '                            Next
+        '                        End If
+        '                    Next
+        '                End If
+        '            Next
+        '        End If
+        '    Next
+        'End If
+
+        'If nodo = "BaseR" Then
+        '    For Each conceptos As XmlNode In comprobante.ChildNodes
+        '        If conceptos.Name = "cfdi:Conceptos" Then
+        '            For Each concepto As XmlNode In conceptos.ChildNodes
+        '                If concepto.Name = "cfdi:Concepto" Then
+        '                    For Each concepto_childs As XmlNode In concepto.ChildNodes
+        '                        If concepto_childs.Name = "cfdi:Impuestos" Then
+        '                            For Each impuestos As XmlNode In concepto_childs.ChildNodes
+        '                                If impuestos.Name = "cfdi:Retenciones" Then
+        '                                    For Each impuestos_child As XmlNode In impuestos.ChildNodes
+        '                                        If impuestos_child.Name = "cfdi:Retencion" Then
+        '                                            For Each impuestos_hijos As XmlNode In impuestos_child.Attributes
+        '                                                If impuestos_hijos.Name = "Base" Then
+        '                                                    resultado = concepto_childs.Value.ToString
+        '                                                    Return resultado
+        '                                                    Exit For
+        '                                                End If
+        '                                            Next
+        '                                        End If
+        '                                    Next
+        '                                End If
+        '                            Next
+        '                        End If
+        '                    Next
+        '                End If
+        '            Next
+        '        End If
+        '    Next
+        'End If
+
         If nodo = "ImpuestosT" Then
             For Each impuestos As XmlNode In comprobante.ChildNodes
                 If impuestos.Name = "cfdi:Impuestos" Then
