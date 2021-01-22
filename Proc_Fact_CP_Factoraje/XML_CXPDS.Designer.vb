@@ -3354,6 +3354,8 @@ Partial Public Class XML_CXPDS
         
         Private columnclaveProdServ As Global.System.Data.DataColumn
         
+        Private columndescuento As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -3630,6 +3632,14 @@ Partial Public Class XML_CXPDS
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property descuentoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columndescuento
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -3695,9 +3705,10 @@ Partial Public Class XML_CXPDS
                     ByVal base As Decimal,  _
                     ByVal baseR As Decimal,  _
                     ByVal importeCon As Decimal,  _
-                    ByVal claveProdServ As Decimal) As CXP_XmlCfdi2Row
+                    ByVal claveProdServ As Decimal,  _
+                    ByVal descuento As Decimal) As CXP_XmlCfdi2Row
             Dim rowCXP_XmlCfdi2Row As CXP_XmlCfdi2Row = CType(Me.NewRow,CXP_XmlCfdi2Row)
-            Dim columnValuesArray() As Object = New Object() {Nothing, rfcEmisor, rfcReceptor, subTotal, impueto, montoImpuesto, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, fechaProceso, estatus, total, contDetalle, tipoFactor, tasaOCuota, impLocRet, impLocTra, montoImpuestoR, base, baseR, importeCon, claveProdServ}
+            Dim columnValuesArray() As Object = New Object() {Nothing, rfcEmisor, rfcReceptor, subTotal, impueto, montoImpuesto, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, fechaProceso, estatus, total, contDetalle, tipoFactor, tasaOCuota, impLocRet, impLocTra, montoImpuestoR, base, baseR, importeCon, claveProdServ, descuento}
             rowCXP_XmlCfdi2Row.ItemArray = columnValuesArray
             Me.Rows.Add(rowCXP_XmlCfdi2Row)
             Return rowCXP_XmlCfdi2Row
@@ -3756,6 +3767,7 @@ Partial Public Class XML_CXPDS
             Me.columnbaseR = MyBase.Columns("baseR")
             Me.columnimporteCon = MyBase.Columns("importeCon")
             Me.columnclaveProdServ = MyBase.Columns("claveProdServ")
+            Me.columndescuento = MyBase.Columns("descuento")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3821,6 +3833,8 @@ Partial Public Class XML_CXPDS
             MyBase.Columns.Add(Me.columnimporteCon)
             Me.columnclaveProdServ = New Global.System.Data.DataColumn("claveProdServ", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnclaveProdServ)
+            Me.columndescuento = New Global.System.Data.DataColumn("descuento", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columndescuento)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnidXmlCfdi}, true))
             Me.columnidXmlCfdi.AutoIncrement = true
             Me.columnidXmlCfdi.AutoIncrementSeed = -1
@@ -6880,6 +6894,21 @@ Partial Public Class XML_CXPDS
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property descuento() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableCXP_XmlCfdi2.descuentoColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'descuento' de la tabla 'CXP_XmlCfdi2' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCXP_XmlCfdi2.descuentoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Function IsrfcEmisorNull() As Boolean
             Return Me.IsNull(Me.tableCXP_XmlCfdi2.rfcEmisorColumn)
         End Function
@@ -7224,6 +7253,18 @@ Partial Public Class XML_CXPDS
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetclaveProdServNull()
             Me(Me.tableCXP_XmlCfdi2.claveProdServColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsdescuentoNull() As Boolean
+            Return Me.IsNull(Me.tableCXP_XmlCfdi2.descuentoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetdescuentoNull()
+            Me(Me.tableCXP_XmlCfdi2.descuentoColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -12081,6 +12122,7 @@ Namespace XML_CXPDSTableAdapters
             tableMapping.ColumnMappings.Add("baseR", "baseR")
             tableMapping.ColumnMappings.Add("importeCon", "importeCon")
             tableMapping.ColumnMappings.Add("claveProdServ", "claveProdServ")
+            tableMapping.ColumnMappings.Add("descuento", "descuento")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
@@ -12118,7 +12160,8 @@ Namespace XML_CXPDSTableAdapters
                 "ND [baseR] IS NULL) OR ([baseR] = @Original_baseR)) AND ((@IsNull_importeCon = 1"& _ 
                 " AND [importeCon] IS NULL) OR ([importeCon] = @Original_importeCon)) AND ((@IsNu"& _ 
                 "ll_claveProdServ = 1 AND [claveProdServ] IS NULL) OR ([claveProdServ] = @Origina"& _ 
-                "l_claveProdServ)))"
+                "l_claveProdServ)) AND ((@IsNull_descuento = 1 AND [descuento] IS NULL) OR ([desc"& _ 
+                "uento] = @Original_descuento)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_idXmlCfdi", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "idXmlCfdi", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_rfcEmisor", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
@@ -12179,23 +12222,25 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_importeCon", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 6, "importeCon", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_claveProdServ", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "claveProdServ", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_claveProdServ", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "claveProdServ", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_descuento", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "descuento", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_descuento", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "descuento", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO [CXP_XmlCfdi2] ([rfcEmisor], [rfcReceptor], [subTotal], [impueto], [m"& _ 
                 "ontoImpuesto], [uuid], [nombreProv], [moneda], [mPago], [fPago], [tipoCambio], ["& _ 
                 "tComprobante], [serie], [folio], [fechaEmision], [fechaTimbrado], [fechaProceso]"& _ 
                 ", [estatus], [total], [contDetalle], [tipoFactor], [tasaOCuota], [impLocRet], [i"& _ 
-                "mpLocTra], [montoImpuestoR], [base], [baseR], [importeCon], [claveProdServ]) VAL"& _ 
-                "UES (@rfcEmisor, @rfcReceptor, @subTotal, @impueto, @montoImpuesto, @uuid, @nomb"& _ 
-                "reProv, @moneda, @mPago, @fPago, @tipoCambio, @tComprobante, @serie, @folio, @fe"& _ 
-                "chaEmision, @fechaTimbrado, @fechaProceso, @estatus, @total, @contDetalle, @tipo"& _ 
-                "Factor, @tasaOCuota, @impLocRet, @impLocTra, @montoImpuestoR, @base, @baseR, @im"& _ 
-                "porteCon, @claveProdServ);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmisor, rfcReceptor, subTotal, "& _ 
-                "impueto, montoImpuesto, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tCom"& _ 
-                "probante, serie, folio, fechaEmision, fechaTimbrado, fechaProceso, estatus, tota"& _ 
-                "l, contDetalle, tipoFactor, tasaOCuota, impLocRet, impLocTra, montoImpuestoR, ba"& _ 
-                "se, baseR, importeCon, claveProdServ FROM CXP_XmlCfdi2 WHERE (idXmlCfdi = SCOPE_"& _ 
-                "IDENTITY())"
+                "mpLocTra], [montoImpuestoR], [base], [baseR], [importeCon], [claveProdServ], [de"& _ 
+                "scuento]) VALUES (@rfcEmisor, @rfcReceptor, @subTotal, @impueto, @montoImpuesto,"& _ 
+                " @uuid, @nombreProv, @moneda, @mPago, @fPago, @tipoCambio, @tComprobante, @serie"& _ 
+                ", @folio, @fechaEmision, @fechaTimbrado, @fechaProceso, @estatus, @total, @contD"& _ 
+                "etalle, @tipoFactor, @tasaOCuota, @impLocRet, @impLocTra, @montoImpuestoR, @base"& _ 
+                ", @baseR, @importeCon, @claveProdServ, @descuento);"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmisor"& _ 
+                ", rfcReceptor, subTotal, impueto, montoImpuesto, uuid, nombreProv, moneda, mPago"& _ 
+                ", fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, fe"& _ 
+                "chaProceso, estatus, total, contDetalle, tipoFactor, tasaOCuota, impLocRet, impL"& _ 
+                "ocTra, montoImpuestoR, base, baseR, importeCon, claveProdServ, descuento FROM CX"& _ 
+                "P_XmlCfdi2 WHERE (idXmlCfdi = SCOPE_IDENTITY())"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcEmisor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcReceptor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcReceptor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -12226,6 +12271,7 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@baseR", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 6, "baseR", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@importeCon", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 6, "importeCon", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@claveProdServ", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "claveProdServ", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@descuento", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "descuento", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand = New Global.System.Data.SqlClient.SqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE [CXP_XmlCfdi2] SET [rfcEmisor] = @rfcEmisor, [rfcReceptor] = @rfcReceptor,"& _ 
@@ -12237,46 +12283,47 @@ Namespace XML_CXPDSTableAdapters
                 "tal] = @total, [contDetalle] = @contDetalle, [tipoFactor] = @tipoFactor, [tasaOC"& _ 
                 "uota] = @tasaOCuota, [impLocRet] = @impLocRet, [impLocTra] = @impLocTra, [montoI"& _ 
                 "mpuestoR] = @montoImpuestoR, [base] = @base, [baseR] = @baseR, [importeCon] = @i"& _ 
-                "mporteCon, [claveProdServ] = @claveProdServ WHERE (([idXmlCfdi] = @Original_idXm"& _ 
-                "lCfdi) AND ((@IsNull_rfcEmisor = 1 AND [rfcEmisor] IS NULL) OR ([rfcEmisor] = @O"& _ 
-                "riginal_rfcEmisor)) AND ((@IsNull_rfcReceptor = 1 AND [rfcReceptor] IS NULL) OR "& _ 
-                "([rfcReceptor] = @Original_rfcReceptor)) AND ((@IsNull_subTotal = 1 AND [subTota"& _ 
-                "l] IS NULL) OR ([subTotal] = @Original_subTotal)) AND ((@IsNull_impueto = 1 AND "& _ 
-                "[impueto] IS NULL) OR ([impueto] = @Original_impueto)) AND ((@IsNull_montoImpues"& _ 
-                "to = 1 AND [montoImpuesto] IS NULL) OR ([montoImpuesto] = @Original_montoImpuest"& _ 
-                "o)) AND ((@IsNull_uuid = 1 AND [uuid] IS NULL) OR ([uuid] = @Original_uuid)) AND"& _ 
-                " ((@IsNull_nombreProv = 1 AND [nombreProv] IS NULL) OR ([nombreProv] = @Original"& _ 
-                "_nombreProv)) AND ((@IsNull_moneda = 1 AND [moneda] IS NULL) OR ([moneda] = @Ori"& _ 
-                "ginal_moneda)) AND ((@IsNull_mPago = 1 AND [mPago] IS NULL) OR ([mPago] = @Origi"& _ 
-                "nal_mPago)) AND ((@IsNull_fPago = 1 AND [fPago] IS NULL) OR ([fPago] = @Original"& _ 
-                "_fPago)) AND ((@IsNull_tipoCambio = 1 AND [tipoCambio] IS NULL) OR ([tipoCambio]"& _ 
-                " = @Original_tipoCambio)) AND ((@IsNull_tComprobante = 1 AND [tComprobante] IS N"& _ 
-                "ULL) OR ([tComprobante] = @Original_tComprobante)) AND ((@IsNull_serie = 1 AND ["& _ 
-                "serie] IS NULL) OR ([serie] = @Original_serie)) AND ((@IsNull_folio = 1 AND [fol"& _ 
-                "io] IS NULL) OR ([folio] = @Original_folio)) AND ((@IsNull_fechaEmision = 1 AND "& _ 
-                "[fechaEmision] IS NULL) OR ([fechaEmision] = @Original_fechaEmision)) AND ((@IsN"& _ 
-                "ull_fechaTimbrado = 1 AND [fechaTimbrado] IS NULL) OR ([fechaTimbrado] = @Origin"& _ 
-                "al_fechaTimbrado)) AND ((@IsNull_fechaProceso = 1 AND [fechaProceso] IS NULL) OR"& _ 
-                " ([fechaProceso] = @Original_fechaProceso)) AND ((@IsNull_estatus = 1 AND [estat"& _ 
-                "us] IS NULL) OR ([estatus] = @Original_estatus)) AND ((@IsNull_total = 1 AND [to"& _ 
-                "tal] IS NULL) OR ([total] = @Original_total)) AND ((@IsNull_contDetalle = 1 AND "& _ 
-                "[contDetalle] IS NULL) OR ([contDetalle] = @Original_contDetalle)) AND ((@IsNull"& _ 
-                "_tipoFactor = 1 AND [tipoFactor] IS NULL) OR ([tipoFactor] = @Original_tipoFacto"& _ 
-                "r)) AND ((@IsNull_tasaOCuota = 1 AND [tasaOCuota] IS NULL) OR ([tasaOCuota] = @O"& _ 
-                "riginal_tasaOCuota)) AND ((@IsNull_impLocRet = 1 AND [impLocRet] IS NULL) OR ([i"& _ 
-                "mpLocRet] = @Original_impLocRet)) AND ((@IsNull_impLocTra = 1 AND [impLocTra] IS"& _ 
-                " NULL) OR ([impLocTra] = @Original_impLocTra)) AND ((@IsNull_montoImpuestoR = 1 "& _ 
-                "AND [montoImpuestoR] IS NULL) OR ([montoImpuestoR] = @Original_montoImpuestoR)) "& _ 
-                "AND ((@IsNull_base = 1 AND [base] IS NULL) OR ([base] = @Original_base)) AND ((@"& _ 
-                "IsNull_baseR = 1 AND [baseR] IS NULL) OR ([baseR] = @Original_baseR)) AND ((@IsN"& _ 
-                "ull_importeCon = 1 AND [importeCon] IS NULL) OR ([importeCon] = @Original_import"& _ 
-                "eCon)) AND ((@IsNull_claveProdServ = 1 AND [claveProdServ] IS NULL) OR ([clavePr"& _ 
-                "odServ] = @Original_claveProdServ)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SELECT idXmlCfdi, rfcEmisor, rfcReceptor,"& _ 
-                " subTotal, impueto, montoImpuesto, uuid, nombreProv, moneda, mPago, fPago, tipoC"& _ 
-                "ambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, fechaProceso, es"& _ 
-                "tatus, total, contDetalle, tipoFactor, tasaOCuota, impLocRet, impLocTra, montoIm"& _ 
-                "puestoR, base, baseR, importeCon, claveProdServ FROM CXP_XmlCfdi2 WHERE (idXmlCf"& _ 
-                "di = @idXmlCfdi)"
+                "mporteCon, [claveProdServ] = @claveProdServ, [descuento] = @descuento WHERE (([i"& _ 
+                "dXmlCfdi] = @Original_idXmlCfdi) AND ((@IsNull_rfcEmisor = 1 AND [rfcEmisor] IS "& _ 
+                "NULL) OR ([rfcEmisor] = @Original_rfcEmisor)) AND ((@IsNull_rfcReceptor = 1 AND "& _ 
+                "[rfcReceptor] IS NULL) OR ([rfcReceptor] = @Original_rfcReceptor)) AND ((@IsNull"& _ 
+                "_subTotal = 1 AND [subTotal] IS NULL) OR ([subTotal] = @Original_subTotal)) AND "& _ 
+                "((@IsNull_impueto = 1 AND [impueto] IS NULL) OR ([impueto] = @Original_impueto))"& _ 
+                " AND ((@IsNull_montoImpuesto = 1 AND [montoImpuesto] IS NULL) OR ([montoImpuesto"& _ 
+                "] = @Original_montoImpuesto)) AND ((@IsNull_uuid = 1 AND [uuid] IS NULL) OR ([uu"& _ 
+                "id] = @Original_uuid)) AND ((@IsNull_nombreProv = 1 AND [nombreProv] IS NULL) OR"& _ 
+                " ([nombreProv] = @Original_nombreProv)) AND ((@IsNull_moneda = 1 AND [moneda] IS"& _ 
+                " NULL) OR ([moneda] = @Original_moneda)) AND ((@IsNull_mPago = 1 AND [mPago] IS "& _ 
+                "NULL) OR ([mPago] = @Original_mPago)) AND ((@IsNull_fPago = 1 AND [fPago] IS NUL"& _ 
+                "L) OR ([fPago] = @Original_fPago)) AND ((@IsNull_tipoCambio = 1 AND [tipoCambio]"& _ 
+                " IS NULL) OR ([tipoCambio] = @Original_tipoCambio)) AND ((@IsNull_tComprobante ="& _ 
+                " 1 AND [tComprobante] IS NULL) OR ([tComprobante] = @Original_tComprobante)) AND"& _ 
+                " ((@IsNull_serie = 1 AND [serie] IS NULL) OR ([serie] = @Original_serie)) AND (("& _ 
+                "@IsNull_folio = 1 AND [folio] IS NULL) OR ([folio] = @Original_folio)) AND ((@Is"& _ 
+                "Null_fechaEmision = 1 AND [fechaEmision] IS NULL) OR ([fechaEmision] = @Original"& _ 
+                "_fechaEmision)) AND ((@IsNull_fechaTimbrado = 1 AND [fechaTimbrado] IS NULL) OR "& _ 
+                "([fechaTimbrado] = @Original_fechaTimbrado)) AND ((@IsNull_fechaProceso = 1 AND "& _ 
+                "[fechaProceso] IS NULL) OR ([fechaProceso] = @Original_fechaProceso)) AND ((@IsN"& _ 
+                "ull_estatus = 1 AND [estatus] IS NULL) OR ([estatus] = @Original_estatus)) AND ("& _ 
+                "(@IsNull_total = 1 AND [total] IS NULL) OR ([total] = @Original_total)) AND ((@I"& _ 
+                "sNull_contDetalle = 1 AND [contDetalle] IS NULL) OR ([contDetalle] = @Original_c"& _ 
+                "ontDetalle)) AND ((@IsNull_tipoFactor = 1 AND [tipoFactor] IS NULL) OR ([tipoFac"& _ 
+                "tor] = @Original_tipoFactor)) AND ((@IsNull_tasaOCuota = 1 AND [tasaOCuota] IS N"& _ 
+                "ULL) OR ([tasaOCuota] = @Original_tasaOCuota)) AND ((@IsNull_impLocRet = 1 AND ["& _ 
+                "impLocRet] IS NULL) OR ([impLocRet] = @Original_impLocRet)) AND ((@IsNull_impLoc"& _ 
+                "Tra = 1 AND [impLocTra] IS NULL) OR ([impLocTra] = @Original_impLocTra)) AND ((@"& _ 
+                "IsNull_montoImpuestoR = 1 AND [montoImpuestoR] IS NULL) OR ([montoImpuestoR] = @"& _ 
+                "Original_montoImpuestoR)) AND ((@IsNull_base = 1 AND [base] IS NULL) OR ([base] "& _ 
+                "= @Original_base)) AND ((@IsNull_baseR = 1 AND [baseR] IS NULL) OR ([baseR] = @O"& _ 
+                "riginal_baseR)) AND ((@IsNull_importeCon = 1 AND [importeCon] IS NULL) OR ([impo"& _ 
+                "rteCon] = @Original_importeCon)) AND ((@IsNull_claveProdServ = 1 AND [claveProdS"& _ 
+                "erv] IS NULL) OR ([claveProdServ] = @Original_claveProdServ)) AND ((@IsNull_desc"& _ 
+                "uento = 1 AND [descuento] IS NULL) OR ([descuento] = @Original_descuento)));"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SE"& _ 
+                "LECT idXmlCfdi, rfcEmisor, rfcReceptor, subTotal, impueto, montoImpuesto, uuid, "& _ 
+                "nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaE"& _ 
+                "mision, fechaTimbrado, fechaProceso, estatus, total, contDetalle, tipoFactor, ta"& _ 
+                "saOCuota, impLocRet, impLocTra, montoImpuestoR, base, baseR, importeCon, clavePr"& _ 
+                "odServ, descuento FROM CXP_XmlCfdi2 WHERE (idXmlCfdi = @idXmlCfdi)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcEmisor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@rfcReceptor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcReceptor", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -12307,6 +12354,7 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@baseR", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 6, "baseR", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@importeCon", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 6, "importeCon", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@claveProdServ", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "claveProdServ", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@descuento", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "descuento", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_idXmlCfdi", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "idXmlCfdi", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_rfcEmisor", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_rfcEmisor", Global.System.Data.SqlDbType.VarChar, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "rfcEmisor", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
@@ -12366,6 +12414,8 @@ Namespace XML_CXPDSTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_importeCon", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 6, "importeCon", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_claveProdServ", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "claveProdServ", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_claveProdServ", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 0, "claveProdServ", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsNull_descuento", Global.System.Data.SqlDbType.Int, 0, Global.System.Data.ParameterDirection.Input, 0, 0, "descuento", Global.System.Data.DataRowVersion.Original, true, Nothing, "", "", ""))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Original_descuento", Global.System.Data.SqlDbType.[Decimal], 0, Global.System.Data.ParameterDirection.Input, 18, 2, "descuento", Global.System.Data.DataRowVersion.Original, false, Nothing, "", "", ""))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@idXmlCfdi", Global.System.Data.SqlDbType.[Decimal], 9, Global.System.Data.ParameterDirection.Input, 18, 0, "idXmlCfdi", Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
@@ -12386,7 +12436,8 @@ Namespace XML_CXPDSTableAdapters
                 ", uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio"& _ 
                 ", fechaEmision, fechaTimbrado, fechaProceso, estatus, total, contDetalle, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"    "& _ 
                 "                     tipoFactor, tasaOCuota, impLocRet, impLocTra, montoImpuesto"& _ 
-                "R, base, baseR, importeCon, claveProdServ"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            CXP_XmlCfdi2"
+                "R, base, baseR, importeCon, claveProdServ, descuento"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            CXP_XmlCfd"& _ 
+                "i2"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             Me._commandCollection(1).Connection = Me.Connection
@@ -12482,7 +12533,8 @@ Namespace XML_CXPDSTableAdapters
                     ByVal Original_base As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_baseR As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_importeCon As Global.System.Nullable(Of Decimal),  _
-                    ByVal Original_claveProdServ As Global.System.Nullable(Of Decimal)) As Integer
+                    ByVal Original_claveProdServ As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_descuento As Global.System.Nullable(Of Decimal)) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_idXmlCfdi,Decimal)
             If (Original_rfcEmisor Is Nothing) Then
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(1,Object)
@@ -12687,6 +12739,13 @@ Namespace XML_CXPDSTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(57).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(58).Value = Global.System.DBNull.Value
             End If
+            If (Original_descuento.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(59).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(60).Value = CType(Original_descuento.Value,Decimal)
+            Else
+                Me.Adapter.DeleteCommand.Parameters(59).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(60).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -12735,7 +12794,8 @@ Namespace XML_CXPDSTableAdapters
                     ByVal base As Global.System.Nullable(Of Decimal),  _
                     ByVal baseR As Global.System.Nullable(Of Decimal),  _
                     ByVal importeCon As Global.System.Nullable(Of Decimal),  _
-                    ByVal claveProdServ As Global.System.Nullable(Of Decimal)) As Integer
+                    ByVal claveProdServ As Global.System.Nullable(Of Decimal),  _
+                    ByVal descuento As Global.System.Nullable(Of Decimal)) As Integer
             If (rfcEmisor Is Nothing) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
@@ -12881,6 +12941,11 @@ Namespace XML_CXPDSTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(28).Value = Global.System.DBNull.Value
             End If
+            If (descuento.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(29).Value = CType(descuento.Value,Decimal)
+            Else
+                Me.Adapter.InsertCommand.Parameters(29).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -12930,6 +12995,7 @@ Namespace XML_CXPDSTableAdapters
                     ByVal baseR As Global.System.Nullable(Of Decimal),  _
                     ByVal importeCon As Global.System.Nullable(Of Decimal),  _
                     ByVal claveProdServ As Global.System.Nullable(Of Decimal),  _
+                    ByVal descuento As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_idXmlCfdi As Decimal,  _
                     ByVal Original_rfcEmisor As String,  _
                     ByVal Original_rfcReceptor As String,  _
@@ -12960,6 +13026,7 @@ Namespace XML_CXPDSTableAdapters
                     ByVal Original_baseR As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_importeCon As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_claveProdServ As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_descuento As Global.System.Nullable(Of Decimal),  _
                     ByVal idXmlCfdi As Decimal) As Integer
             If (rfcEmisor Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
@@ -13106,211 +13173,223 @@ Namespace XML_CXPDSTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(28).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(29).Value = CType(Original_idXmlCfdi,Decimal)
-            If (Original_rfcEmisor Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(30).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(31).Value = Global.System.DBNull.Value
+            If (descuento.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(29).Value = CType(descuento.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(30).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(Original_rfcEmisor,String)
+                Me.Adapter.UpdateCommand.Parameters(29).Value = Global.System.DBNull.Value
+            End If
+            Me.Adapter.UpdateCommand.Parameters(30).Value = CType(Original_idXmlCfdi,Decimal)
+            If (Original_rfcEmisor Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(32).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(32).Value = CType(Original_rfcEmisor,String)
             End If
             If (Original_rfcReceptor Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(32).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(33).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(34).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(32).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(Original_rfcReceptor,String)
+                Me.Adapter.UpdateCommand.Parameters(33).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(34).Value = CType(Original_rfcReceptor,String)
             End If
             If (Original_subTotal.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(34).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(Original_subTotal.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(36).Value = CType(Original_subTotal.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(34).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(35).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(35).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(36).Value = Global.System.DBNull.Value
             End If
             If (Original_impueto Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(36).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(37).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(37).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(38).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(36).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(37).Value = CType(Original_impueto,String)
+                Me.Adapter.UpdateCommand.Parameters(37).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(38).Value = CType(Original_impueto,String)
             End If
             If (Original_montoImpuesto.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(38).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(39).Value = CType(Original_montoImpuesto.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(39).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(40).Value = CType(Original_montoImpuesto.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(38).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(39).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(39).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(40).Value = Global.System.DBNull.Value
             End If
             If (Original_uuid Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(40).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(41).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(41).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(42).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(40).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(41).Value = CType(Original_uuid,String)
+                Me.Adapter.UpdateCommand.Parameters(41).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(42).Value = CType(Original_uuid,String)
             End If
             If (Original_nombreProv Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(42).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(43).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(43).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(44).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(42).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(43).Value = CType(Original_nombreProv,String)
+                Me.Adapter.UpdateCommand.Parameters(43).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(44).Value = CType(Original_nombreProv,String)
             End If
             If (Original_moneda Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(44).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(45).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(45).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(46).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(44).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(45).Value = CType(Original_moneda,String)
+                Me.Adapter.UpdateCommand.Parameters(45).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(46).Value = CType(Original_moneda,String)
             End If
             If (Original_mPago Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(46).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(47).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(47).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(48).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(46).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(47).Value = CType(Original_mPago,String)
+                Me.Adapter.UpdateCommand.Parameters(47).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(48).Value = CType(Original_mPago,String)
             End If
             If (Original_fPago Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(48).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(49).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(49).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(50).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(48).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(49).Value = CType(Original_fPago,String)
+                Me.Adapter.UpdateCommand.Parameters(49).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(50).Value = CType(Original_fPago,String)
             End If
             If (Original_tipoCambio.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(50).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(51).Value = CType(Original_tipoCambio.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(51).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(52).Value = CType(Original_tipoCambio.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(50).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(51).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(51).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(52).Value = Global.System.DBNull.Value
             End If
             If (Original_tComprobante Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(52).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(53).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(53).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(54).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(52).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(53).Value = CType(Original_tComprobante,String)
+                Me.Adapter.UpdateCommand.Parameters(53).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(54).Value = CType(Original_tComprobante,String)
             End If
             If (Original_serie Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(54).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(55).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(55).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(56).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(54).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(55).Value = CType(Original_serie,String)
+                Me.Adapter.UpdateCommand.Parameters(55).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(56).Value = CType(Original_serie,String)
             End If
             If (Original_folio Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(56).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(57).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(57).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(58).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(56).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(57).Value = CType(Original_folio,String)
+                Me.Adapter.UpdateCommand.Parameters(57).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(58).Value = CType(Original_folio,String)
             End If
             If (Original_fechaEmision Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(58).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(59).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(59).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(60).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(58).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(59).Value = CType(Original_fechaEmision,String)
+                Me.Adapter.UpdateCommand.Parameters(59).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(60).Value = CType(Original_fechaEmision,String)
             End If
             If (Original_fechaTimbrado Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(60).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(61).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(61).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(62).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(60).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(61).Value = CType(Original_fechaTimbrado,String)
+                Me.Adapter.UpdateCommand.Parameters(61).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(62).Value = CType(Original_fechaTimbrado,String)
             End If
             If (Original_fechaProceso.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(62).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(63).Value = CType(Original_fechaProceso.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(63).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(64).Value = CType(Original_fechaProceso.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(62).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(63).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(63).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(64).Value = Global.System.DBNull.Value
             End If
             If (Original_estatus Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(64).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(65).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(65).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(66).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(64).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(65).Value = CType(Original_estatus,String)
+                Me.Adapter.UpdateCommand.Parameters(65).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(66).Value = CType(Original_estatus,String)
             End If
             If (Original_total.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(66).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(67).Value = CType(Original_total.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(67).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(68).Value = CType(Original_total.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(66).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(67).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(67).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(68).Value = Global.System.DBNull.Value
             End If
             If (Original_contDetalle.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(68).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(69).Value = CType(Original_contDetalle.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(69).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(70).Value = CType(Original_contDetalle.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(68).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(69).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(69).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(70).Value = Global.System.DBNull.Value
             End If
             If (Original_tipoFactor Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(70).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(71).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(71).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(72).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(70).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(71).Value = CType(Original_tipoFactor,String)
+                Me.Adapter.UpdateCommand.Parameters(71).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(72).Value = CType(Original_tipoFactor,String)
             End If
             If (Original_tasaOCuota.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(72).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(73).Value = CType(Original_tasaOCuota.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(73).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(74).Value = CType(Original_tasaOCuota.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(72).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(73).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(73).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(74).Value = Global.System.DBNull.Value
             End If
             If (Original_impLocRet.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(74).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(75).Value = CType(Original_impLocRet.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(75).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(76).Value = CType(Original_impLocRet.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(74).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(75).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(75).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(76).Value = Global.System.DBNull.Value
             End If
             If (Original_impLocTra.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(76).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(77).Value = CType(Original_impLocTra.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(77).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(78).Value = CType(Original_impLocTra.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(76).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(77).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(77).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(78).Value = Global.System.DBNull.Value
             End If
             If (Original_montoImpuestoR.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(78).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(79).Value = CType(Original_montoImpuestoR.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(79).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(80).Value = CType(Original_montoImpuestoR.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(78).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(79).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(79).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(80).Value = Global.System.DBNull.Value
             End If
             If (Original_base.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(80).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(81).Value = CType(Original_base.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(81).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(82).Value = CType(Original_base.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(80).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(81).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(81).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(82).Value = Global.System.DBNull.Value
             End If
             If (Original_baseR.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(82).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(83).Value = CType(Original_baseR.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(83).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(84).Value = CType(Original_baseR.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(82).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(83).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(83).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(84).Value = Global.System.DBNull.Value
             End If
             If (Original_importeCon.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(84).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(85).Value = CType(Original_importeCon.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(85).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(86).Value = CType(Original_importeCon.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(84).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(85).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(85).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(86).Value = Global.System.DBNull.Value
             End If
             If (Original_claveProdServ.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(86).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(87).Value = CType(Original_claveProdServ.Value,Decimal)
+                Me.Adapter.UpdateCommand.Parameters(87).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(88).Value = CType(Original_claveProdServ.Value,Decimal)
             Else
-                Me.Adapter.UpdateCommand.Parameters(86).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(87).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(87).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(88).Value = Global.System.DBNull.Value
             End If
-            Me.Adapter.UpdateCommand.Parameters(88).Value = CType(idXmlCfdi,Decimal)
+            If (Original_descuento.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(89).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(90).Value = CType(Original_descuento.Value,Decimal)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(89).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(90).Value = Global.System.DBNull.Value
+            End If
+            Me.Adapter.UpdateCommand.Parameters(91).Value = CType(idXmlCfdi,Decimal)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -13360,6 +13439,7 @@ Namespace XML_CXPDSTableAdapters
                     ByVal baseR As Global.System.Nullable(Of Decimal),  _
                     ByVal importeCon As Global.System.Nullable(Of Decimal),  _
                     ByVal claveProdServ As Global.System.Nullable(Of Decimal),  _
+                    ByVal descuento As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_idXmlCfdi As Decimal,  _
                     ByVal Original_rfcEmisor As String,  _
                     ByVal Original_rfcReceptor As String,  _
@@ -13389,8 +13469,9 @@ Namespace XML_CXPDSTableAdapters
                     ByVal Original_base As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_baseR As Global.System.Nullable(Of Decimal),  _
                     ByVal Original_importeCon As Global.System.Nullable(Of Decimal),  _
-                    ByVal Original_claveProdServ As Global.System.Nullable(Of Decimal)) As Integer
-            Return Me.Update(rfcEmisor, rfcReceptor, subTotal, impueto, montoImpuesto, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, fechaProceso, estatus, total, contDetalle, tipoFactor, tasaOCuota, impLocRet, impLocTra, montoImpuestoR, base, baseR, importeCon, claveProdServ, Original_idXmlCfdi, Original_rfcEmisor, Original_rfcReceptor, Original_subTotal, Original_impueto, Original_montoImpuesto, Original_uuid, Original_nombreProv, Original_moneda, Original_mPago, Original_fPago, Original_tipoCambio, Original_tComprobante, Original_serie, Original_folio, Original_fechaEmision, Original_fechaTimbrado, Original_fechaProceso, Original_estatus, Original_total, Original_contDetalle, Original_tipoFactor, Original_tasaOCuota, Original_impLocRet, Original_impLocTra, Original_montoImpuestoR, Original_base, Original_baseR, Original_importeCon, Original_claveProdServ, Original_idXmlCfdi)
+                    ByVal Original_claveProdServ As Global.System.Nullable(Of Decimal),  _
+                    ByVal Original_descuento As Global.System.Nullable(Of Decimal)) As Integer
+            Return Me.Update(rfcEmisor, rfcReceptor, subTotal, impueto, montoImpuesto, uuid, nombreProv, moneda, mPago, fPago, tipoCambio, tComprobante, serie, folio, fechaEmision, fechaTimbrado, fechaProceso, estatus, total, contDetalle, tipoFactor, tasaOCuota, impLocRet, impLocTra, montoImpuestoR, base, baseR, importeCon, claveProdServ, descuento, Original_idXmlCfdi, Original_rfcEmisor, Original_rfcReceptor, Original_subTotal, Original_impueto, Original_montoImpuesto, Original_uuid, Original_nombreProv, Original_moneda, Original_mPago, Original_fPago, Original_tipoCambio, Original_tComprobante, Original_serie, Original_folio, Original_fechaEmision, Original_fechaTimbrado, Original_fechaProceso, Original_estatus, Original_total, Original_contDetalle, Original_tipoFactor, Original_tasaOCuota, Original_impLocRet, Original_impLocTra, Original_montoImpuestoR, Original_base, Original_baseR, Original_importeCon, Original_claveProdServ, Original_descuento, Original_idXmlCfdi)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
