@@ -392,7 +392,7 @@ Module Procesa_XML
                                 ElseIf atributosConceptos.Name = "ClaveProdServ" Then
                                     claveSat = atributosConceptos.Value.ToString
                                 ElseIf atributosConceptos.Name = "Descuento" Then
-                                    claveSat = atributosConceptos.Value.ToString
+                                    descuento = atributosConceptos.Value.ToString
                                 End If
                             Next
                             If detalle_conceptos.ChildNodes.Count = 0 Then
@@ -541,7 +541,7 @@ Module Procesa_XML
                                 ElseIf atributosConceptos.Name = "ClaveProdServ" Then
                                     claveSat = atributosConceptos.Value.ToString
                                 ElseIf atributosConceptos.Name = "Descuento" Then
-                                    claveSat = atributosConceptos.Value.ToString
+                                    descuento = atributosConceptos.Value.ToString
                                 End If
                             Next
                             If detalle_conceptos.ChildNodes.Count = 0 Then
