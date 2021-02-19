@@ -460,7 +460,7 @@ Module Procesa_XML
                                                     Next
                                                     'Insert
                                                     contDetalle += 1
-                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, Nothing, Base, Nothing, Nothing, Nothing, descuento, importeCuentaDeTerceros, concepto)
+                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, Nothing, Base, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
                                                 End If
                                             Next
                                         End If
@@ -487,7 +487,7 @@ Module Procesa_XML
                                                     Next
                                                     'Insert
                                                     contDetalle += 1
-                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, CDec(ImporteImpuesto), Nothing, Base, Nothing, Nothing, descuento, importeCuentaDeTerceros, concepto)
+                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, CDec(ImporteImpuesto), Nothing, Base, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
                                                 End If
                                             Next
 
@@ -596,68 +596,74 @@ Module Procesa_XML
                                 contDetalle += 1
                                 dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing, Nothing, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
                             End If
+                            'valida si nodo impuestos existe
+                            If detalle_conceptos.SelectSingleNode("//cfdi:Comprobante/cfdi:Impuestos").Value = Nothing Then
+                                MsgBox("hola")
+                            End If
+                            'termina valida nodo impuestos
+                            '
                             For Each concepto_hijos As XmlNode In detalle_conceptos.ChildNodes
-                                If concepto_hijos.Name = "cfdi:Impuestos" Then
-                                    For Each impuestos_detalle As XmlNode In concepto_hijos.ChildNodes
-                                        If impuestos_detalle.Name = "cfdi:Traslados" Then
-                                            Dim Base As String = ""
-                                            Dim Impuesto As String = ""
-                                            Dim Tipofactor As String = ""
-                                            Dim TasaOCuota As String = "0"
-                                            Dim ImporteImpuesto As String = "0"
-                                            For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
-                                                If impuestos_traslado.Name = "cfdi:Traslado" Then
-                                                    For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
-                                                        If impuestos_traslado_atributos.Name = "Base" Then
-                                                            Base = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
-                                                            Impuesto = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
-                                                            Tipofactor = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
-                                                            TasaOCuota = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "Importe" Then
-                                                            ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
-                                                        End If
-                                                    Next
-                                                    'Insert
-                                                    contDetalle += 1
-                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, Nothing, Base, Nothing, Nothing, Nothing, descuento, importeCuentaDeTerceros, concepto)
+                                    If concepto_hijos.Name = "cfdi:Impuestos" Then
+                                        For Each impuestos_detalle As XmlNode In concepto_hijos.ChildNodes
+                                            If impuestos_detalle.Name = "cfdi:Traslados" Then
+                                                Dim Base As String = ""
+                                                Dim Impuesto As String = ""
+                                                Dim Tipofactor As String = ""
+                                                Dim TasaOCuota As String = "0"
+                                                Dim ImporteImpuesto As String = "0"
+                                                For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
+                                                    If impuestos_traslado.Name = "cfdi:Traslado" Then
+                                                        For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
+                                                            If impuestos_traslado_atributos.Name = "Base" Then
+                                                                Base = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
+                                                                Impuesto = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
+                                                                Tipofactor = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
+                                                                TasaOCuota = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "Importe" Then
+                                                                ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
+                                                            End If
+                                                        Next
+                                                        'Insert
+                                                        contDetalle += 1
+                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, Nothing, Base, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
                                                 End If
-                                            Next
-                                        End If
-                                        If impuestos_detalle.Name = "cfdi:Retenciones" Then
-                                            Dim Base As String = ""
-                                            Dim Impuesto As String = ""
-                                            Dim Tipofactor As String = ""
-                                            Dim TasaOCuota As String = ""
-                                            Dim ImporteImpuesto As String = ""
-                                            For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
-                                                If impuestos_traslado.Name = "cfdi:Retencion" Then
-                                                    For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
-                                                        If impuestos_traslado_atributos.Name = "Base" Then
-                                                            Base = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
-                                                            Impuesto = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
-                                                            Tipofactor = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
-                                                            TasaOCuota = impuestos_traslado_atributos.Value.ToString
-                                                        ElseIf impuestos_traslado_atributos.Name = "Importe" Then
-                                                            ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
-                                                        End If
-                                                    Next
-                                                    'Insert
-                                                    contDetalle += 1
-                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, CDec(ImporteImpuesto), Nothing, Base, Nothing, Nothing, descuento, importeCuentaDeTerceros, concepto)
+                                                Next
+                                            End If
+                                            If impuestos_detalle.Name = "cfdi:Retenciones" Then
+                                                Dim Base As String = ""
+                                                Dim Impuesto As String = ""
+                                                Dim Tipofactor As String = ""
+                                                Dim TasaOCuota As String = ""
+                                                Dim ImporteImpuesto As String = ""
+                                                For Each impuestos_traslado As XmlNode In impuestos_detalle.ChildNodes
+                                                    If impuestos_traslado.Name = "cfdi:Retencion" Then
+                                                        For Each impuestos_traslado_atributos As XmlNode In impuestos_traslado.Attributes
+                                                            If impuestos_traslado_atributos.Name = "Base" Then
+                                                                Base = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "Impuesto" Then
+                                                                Impuesto = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "TipoFactor" Then
+                                                                Tipofactor = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "TasaOCuota" Then
+                                                                TasaOCuota = impuestos_traslado_atributos.Value.ToString
+                                                            ElseIf impuestos_traslado_atributos.Name = "Importe" Then
+                                                                ImporteImpuesto = impuestos_traslado_atributos.Value.ToString
+                                                            End If
+                                                        Next
+                                                        'Insert
+                                                        contDetalle += 1
+                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, CDec(ImporteImpuesto), Nothing, Base, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
                                                 End If
-                                            Next
+                                                Next
 
-                                        End If
-                                    Next
-                                End If
-                            Next
-                        End If
+                                            End If
+                                        Next
+                                    End If
+                                Next
+                            End If
                     Next
 
                     System.IO.File.Move(Archivo, pathCxpF & "Procesados\" & leeXMLF(cadXML, "UUID") & ".xml")
