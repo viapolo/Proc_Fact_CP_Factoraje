@@ -391,6 +391,9 @@ Module Procesa_XML
                             For Each conceptoDetalle As XmlNode In detalle_conceptos.Attributes
                                 If conceptoDetalle.Name = "Descripcion" Then
                                     concepto = conceptoDetalle.Value.ToString
+                                    If concepto.Length > 300 Then
+                                        concepto = concepto.Substring(0, 299)
+                                    End If
                                 End If
                             Next
                             For Each complementosConcepto As XmlNode In detalle_conceptos.ChildNodes
@@ -564,6 +567,9 @@ Module Procesa_XML
                             For Each conceptoDetalle As XmlNode In detalle_conceptos.Attributes
                                 If conceptoDetalle.Name = "Descripcion" Then
                                     concepto = conceptoDetalle.Value.ToString
+                                    If concepto.Length > 300 Then
+                                        concepto = concepto.Substring(0, 299)
+                                    End If
                                 End If
                             Next
                             For Each complementosConcepto As XmlNode In detalle_conceptos.ChildNodes
@@ -597,9 +603,11 @@ Module Procesa_XML
                                 dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing, Nothing, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
                             End If
                             'valida si nodo impuestos existe
-                            If detalle_conceptos.SelectSingleNode("//cfdi:Comprobante/cfdi:Impuestos").Value = Nothing Then
-                                MsgBox("hola")
-                            End If
+
+                            'If (res.LeeXML(Archivo, "ExisteImpuestos")) = Nothing Then
+                            '    'MsgBox("hola")
+                            '    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing, Nothing, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
+                            'End If
                             'termina valida nodo impuestos
                             '
                             For Each concepto_hijos As XmlNode In detalle_conceptos.ChildNodes

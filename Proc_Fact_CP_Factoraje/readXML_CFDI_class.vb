@@ -395,6 +395,23 @@ Public Class readXML_CFDI_class
                 Return resultado
             Next
         End If
+
+        If nodo = "ExisteImpuestos" Then
+            Dim nsmgr As XmlNamespaceManager = New XmlNamespaceManager(doc.NameTable)
+            nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3")
+            nsmgr.AddNamespace("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital")
+            Dim nodeList As XmlNodeList
+            Dim root As XmlElement = doc.DocumentElement
+
+            'nodeList = root.SelectNodes("//cfdi:TimbreFiscalDigital/@UUID", nsmgr)
+            nodeList = root.SelectNodes("//cfdi:Impuestos/@TotalImpuestosTrasladados", nsmgr)
+            Dim uuid As XmlNode
+            For Each uuid In nodeList
+                resultado = uuid.Value.ToString
+                Return resultado
+            Next
+        End If
+
         If nodo = "implocalR" Then
             Dim nsmgr As XmlNamespaceManager = New XmlNamespaceManager(doc.NameTable)
             nsmgr.AddNamespace("cfdi", "http://www.sat.gob.mx/cfd/3")
