@@ -604,12 +604,12 @@ Module Procesa_XML
                             End If
                             'valida si nodo impuestos existe
 
-                            'If (res.LeeXML(Archivo, "ExisteImpuestos")) = Nothing Then
-                            '    'MsgBox("hola")
-                            '    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing, Nothing, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
-                            'End If
+                            If (res.LeeXML(Archivo, "ExisteImpuestos")) = Nothing Then
+                                'MsgBox("hola")
+                                dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Nothing, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Nothing, Nothing, impLocRet, impLocTra, Nothing, Nothing, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
+                            End If
                             'termina valida nodo impuestos
-                            '
+
                             For Each concepto_hijos As XmlNode In detalle_conceptos.ChildNodes
                                     If concepto_hijos.Name = "cfdi:Impuestos" Then
                                         For Each impuestos_detalle As XmlNode In concepto_hijos.ChildNodes
@@ -636,8 +636,8 @@ Module Procesa_XML
                                                         Next
                                                         'Insert
                                                         contDetalle += 1
-                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, Nothing, Base, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
-                                                End If
+                                                        dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, CDec(ImporteImpuesto), res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, Nothing, Base, Nothing, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
+                                                    End If
                                                 Next
                                             End If
                                             If impuestos_detalle.Name = "cfdi:Retenciones" Then
@@ -663,8 +663,8 @@ Module Procesa_XML
                                                         Next
                                                         'Insert
                                                         contDetalle += 1
-                                                    dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, CDec(ImporteImpuesto), Nothing, Base, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
-                                                End If
+                                                        dtCxp.Insert(res.LeeXML(Archivo, "RFCE"), res.LeeXML(Archivo, "RFCR"), CDec(res.LeeXML(Archivo, "SubTotal")) - CDec(res.LeeXML(Archivo, "Descuento")), Impuesto, Nothing, res.LeeXML(Archivo, "UUID"), res.LeeXML(Archivo, "NombreE"), res.LeeXML(Archivo, "Moneda"), res.LeeXML(Archivo, "MetodoPago"), res.LeeXML(Archivo, "FormaPago"), CDec(res.LeeXML(Archivo, "TipoCambio")), res.LeeXML(Archivo, "TipoDeComprobante"), res.LeeXML(Archivo, "Serie"), res.LeeXML(Archivo, "Folio"), res.LeeXML(Archivo, "Fecha"), res.LeeXML(Archivo, "FechaTimbrado"), System.Data.SqlTypes.SqlDateTime.Null, "PENDIENTE", totalGl, contDetalle.ToString, Tipofactor, CDec(TasaOCuota), impLocRet, impLocTra, CDec(ImporteImpuesto), Nothing, Base, importe, claveSat, descuento, importeCuentaDeTerceros, concepto)
+                                                    End If
                                                 Next
 
                                             End If
